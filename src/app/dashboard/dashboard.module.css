@@ -3,13 +3,13 @@
   display: flex;
   height: 100dvh;
   width: 100%;
-  background-color: #FFFFFF;
+  background-color: var(--background);
   overflow: hidden;
 }
 
 .sidebar {
-  background-color: #FFFFFF;
-  border-right: 1px solid #E5E7EB;
+  background-color: var(--card);
+  border-right: 1px solid var(--border);
   width: 260px;
   display: flex;
   flex-direction: column;
@@ -176,14 +176,14 @@
 .mainContent {
   display: flex;
   flex-direction: column;
-  background-color: #F9FAFB;
+  background-color: var(--background-secondary);
   overflow: hidden;
   flex: 1;
 }
 
 .header {
-  background-color: #FFFFFF;
-  border-bottom: 1px solid #E5E7EB;
+  background-color: var(--card);
+  border-bottom: 1px solid var(--border);
   padding: 0.75rem 1.5rem;
   display: flex;
   align-items: center;
