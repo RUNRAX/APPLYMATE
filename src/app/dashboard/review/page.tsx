@@ -1,7 +1,7 @@
 import { auth } from "@/features/auth/auth";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { Card } from "@/components/ui/Card";
 import ReviewQueueClient from "./ReviewQueueClient";
 
 export const dynamic = 'force-dynamic';
@@ -50,8 +50,8 @@ export default async function ReviewQueuePage({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       <div>
-        <h1 className="font-display" style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>Review Queue</h1>
-        <p style={{ color: 'var(--muted-foreground)' }}>Tasks requiring your manual attention to unblock the agent.</p>
+        <h1 className="font-display" style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '0.5rem', letterSpacing: '-0.02em', color: 'var(--foreground)' }}>Review Queue</h1>
+        <p style={{ color: 'var(--muted-foreground)', fontSize: '0.9rem' }}>Tasks requiring your manual attention to unblock the agent.</p>
       </div>
 
       <ReviewQueueClient 

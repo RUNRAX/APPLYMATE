@@ -43,38 +43,38 @@ export default function PreferencesForm({ preference }: { preference: any }) {
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
         <div>
-          <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, marginBottom: '0.5rem' }}>Experience Level</label>
+          <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, marginBottom: '0.5rem', color: 'var(--foreground)' }}>Experience Level</label>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: 'var(--foreground)' }}>
               <input type="checkbox" name="experienceLevel" value="1" defaultChecked={preference?.experienceLevel?.includes("1")} /> Internship
             </label>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: 'var(--foreground)' }}>
               <input type="checkbox" name="experienceLevel" value="2" defaultChecked={preference?.experienceLevel?.includes("2")} /> Entry level
             </label>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: 'var(--foreground)' }}>
               <input type="checkbox" name="experienceLevel" value="3" defaultChecked={preference?.experienceLevel?.includes("3")} /> Associate
             </label>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: 'var(--foreground)' }}>
               <input type="checkbox" name="experienceLevel" value="4" defaultChecked={preference?.experienceLevel?.includes("4")} /> Mid-Senior
             </label>
           </div>
         </div>
 
         <div>
-          <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, marginBottom: '0.5rem' }}>Date Posted</label>
+          <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, marginBottom: '0.5rem', color: 'var(--foreground)' }}>Date Posted</label>
           <select 
             name="datePosted" 
             defaultValue={preference?.datePosted || ""}
             style={{ 
               width: '100%', padding: '0.75rem', borderRadius: '8px', 
-              background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', 
-              color: 'white', outline: 'none' 
+              backgroundColor: 'var(--background)', border: '1px solid var(--border)', 
+              color: 'var(--foreground)', outline: 'none' 
             }}
           >
-            <option value="" style={{ color: 'black' }}>Any Time</option>
-            <option value="r86400" style={{ color: 'black' }}>Past 24 hours</option>
-            <option value="r604800" style={{ color: 'black' }}>Past Week</option>
-            <option value="r2592000" style={{ color: 'black' }}>Past Month</option>
+            <option value="">Any Time</option>
+            <option value="r86400">Past 24 hours</option>
+            <option value="r604800">Past Week</option>
+            <option value="r2592000">Past Month</option>
           </select>
         </div>
       </div>
@@ -107,8 +107,8 @@ export default function PreferencesForm({ preference }: { preference: any }) {
         <div 
           onClick={() => setRemoteChecked(!remoteChecked)}
           style={{ 
-            width: '40px', height: '24px', background: remoteChecked ? 'var(--gradient-vivid)' : 'rgba(255,255,255,0.1)', 
-            borderRadius: '12px', position: 'relative', cursor: 'pointer', transition: 'background 0.2s'
+            width: '40px', height: '24px', backgroundColor: remoteChecked ? 'var(--primary)' : 'var(--border, #D1D5DB)', 
+            borderRadius: '12px', position: 'relative', cursor: 'pointer', transition: 'background-color 0.2s'
           }}
         >
           <input 
@@ -119,16 +119,16 @@ export default function PreferencesForm({ preference }: { preference: any }) {
             style={{ display: 'none' }} 
           />
           <div style={{ 
-            width: '18px', height: '18px', background: '#fff', borderRadius: '50%', position: 'absolute', 
-            top: '3px', left: remoteChecked ? '19px' : '3px', transition: 'left 0.2s', boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+            width: '18px', height: '18px', backgroundColor: '#fff', borderRadius: '50%', position: 'absolute', 
+            top: '3px', left: remoteChecked ? '19px' : '3px', transition: 'left 0.2s', boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
           }} />
         </div>
-        <span style={{ fontWeight: 500, cursor: 'pointer' }} onClick={() => setRemoteChecked(!remoteChecked)}>
+        <span style={{ fontWeight: 500, cursor: 'pointer', color: 'var(--foreground)' }} onClick={() => setRemoteChecked(!remoteChecked)}>
           Only apply to Remote roles
         </span>
       </div>
 
-      <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '1.5rem', borderTop: '1px solid var(--glass-border)', paddingTop: '1.5rem' }}>
+      <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '1.5rem', borderTop: '1px solid var(--border)', paddingTop: '1.5rem' }}>
         {isSaved && (
           <span style={{ color: 'var(--success)', fontSize: '0.9rem', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
             ✓ Preferences saved!

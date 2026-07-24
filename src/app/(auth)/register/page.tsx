@@ -1,5 +1,5 @@
 "use client";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
@@ -27,17 +27,17 @@ export default function Register() {
   }
 
   return (
-    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-      <div className="animate-scale-in" style={{ width: '100%', maxWidth: '448px' }}>
-        <GlassCard variant="strong" style={{ padding: '3rem 2.5rem' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', backgroundColor: '#F9FAFB' }}>
+      <div className="animate-scale-in" style={{ width: '100%', maxWidth: '420px' }}>
+        <Card variant="elevated" style={{ padding: '2.5rem', backgroundColor: '#FFFFFF' }}>
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
             <Logo />
           </div>
 
-          <h2 className="font-display text-gradient-vivid" style={{ fontSize: '2.5rem', fontWeight: 600, marginBottom: '0.5rem', textAlign: 'center' }}>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '0.5rem', textAlign: 'center', color: '#111827', fontFamily: 'var(--font-display)' }}>
             Create Account
           </h2>
-          <p style={{ color: 'var(--muted-foreground)', textAlign: 'center', marginBottom: '2.5rem', fontSize: '1rem' }}>
+          <p style={{ color: '#6B7280', textAlign: 'center', marginBottom: '2rem', fontSize: '0.95rem' }}>
             Start your autonomous job search
           </p>
 
@@ -46,21 +46,21 @@ export default function Register() {
             <Input label="Email address" name="email" type="email" placeholder="you@example.com" required />
             <Input label="Password" name="password" type="password" placeholder="••••••••" required />
             
-            <div style={{ fontSize: '0.85rem', color: 'var(--muted-foreground)', marginTop: '0.5rem' }}>
-              By creating an account, you agree to our <Link href="#" className="text-gradient">Terms of Service</Link> and <Link href="#" className="text-gradient">Privacy Policy</Link>.
+            <div style={{ fontSize: '0.8rem', color: '#6B7280', marginTop: '0.25rem', lineHeight: '1.5' }}>
+              By creating an account, you agree to our <Link href="#" style={{ color: '#4F46E5', textDecoration: 'none' }}>Terms of Service</Link> and <Link href="#" style={{ color: '#4F46E5', textDecoration: 'none' }}>Privacy Policy</Link>.
             </div>
 
-            {error && <div style={{ color: "var(--error)", fontSize: "0.9rem", textAlign: "center" }}>{error}</div>}
+            {error && <div style={{ color: "#DC2626", fontSize: "0.875rem", textAlign: "center", marginTop: "0.5rem" }}>{error}</div>}
 
-            <Button variant="primary" size="lg" type="submit" disabled={loading} style={{ marginTop: '1rem', width: '100%' }}>
+            <Button variant="primary" size="lg" type="submit" disabled={loading} style={{ marginTop: '0.5rem', width: '100%' }}>
               {loading ? "Creating..." : "Create account"}
             </Button>
           </form>
 
-          <div style={{ marginTop: '2.5rem', textAlign: 'center', fontSize: '0.95rem', color: 'var(--muted-foreground)' }}>
-            Already have an account? <Link href="/login" className="text-gradient" style={{ fontWeight: 600, marginLeft: '0.25rem' }}>Sign in</Link>
+          <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.875rem', color: '#6B7280' }}>
+            Already have an account? <Link href="/login" style={{ color: '#4F46E5', fontWeight: 600, marginLeft: '0.25rem', textDecoration: 'none' }}>Sign in</Link>
           </div>
-        </GlassCard>
+        </Card>
       </div>
     </div>
   );

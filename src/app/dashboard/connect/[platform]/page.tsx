@@ -1,6 +1,6 @@
 import { auth } from "@/features/auth/auth";
 import { redirect } from "next/navigation";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { Card } from "@/components/ui/Card";
 import ConnectForm from "./ConnectForm";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
@@ -29,9 +29,9 @@ export default async function ConnectPlatformPage({ params }: Props) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
-      <GlassCard variant="strong" style={{ width: '100%', maxWidth: '450px', padding: '3rem 2rem' }}>
+      <Card style={{ width: '100%', maxWidth: '450px', padding: '3rem 2rem', backgroundColor: 'var(--background)', border: '1px solid var(--border)' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <h1 className="font-display" style={{ fontSize: '1.8rem', fontWeight: 700, marginBottom: '0.5rem' }}>
+          <h1 className="font-display" style={{ fontSize: '1.8rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--foreground)' }}>
             {existingCredential ? `✓ ${platformName} Connected` : `Connect ${platformName}`}
           </h1>
           <p style={{ color: 'var(--muted-foreground)', fontSize: '0.9rem' }}>
@@ -46,7 +46,7 @@ export default async function ConnectPlatformPage({ params }: Props) {
             <Link href="/dashboard/settings">
               <Button variant="outline" style={{ width: '100%' }}>Back to Settings</Button>
             </Link>
-            <div style={{ marginTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem' }}>
+            <div style={{ marginTop: '1rem', borderTop: '1px solid var(--border)', paddingTop: '1.5rem' }}>
               <p style={{ fontSize: '0.85rem', color: 'var(--muted-foreground)', marginBottom: '1rem', textAlign: 'center' }}>
                 Need to update your password?
               </p>
@@ -56,7 +56,7 @@ export default async function ConnectPlatformPage({ params }: Props) {
         ) : (
           <ConnectForm platformName={platformName} platformId={platform.toLowerCase()} />
         )}
-      </GlassCard>
+      </Card>
     </div>
   );
 }

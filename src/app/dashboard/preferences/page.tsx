@@ -1,7 +1,7 @@
 import { auth } from "@/features/auth/auth";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { Card } from "@/components/ui/Card";
 import PreferencesForm from "./PreferencesForm";
 
 export default async function PreferencesPage() {
@@ -25,9 +25,9 @@ export default async function PreferencesPage() {
         <p style={{ color: 'var(--muted-foreground)' }}>Define exactly what kind of roles the agent should apply for.</p>
       </div>
 
-      <GlassCard variant="strong" style={{ maxWidth: '800px' }}>
+      <Card variant="elevated" style={{ maxWidth: '800px' }}>
         <PreferencesForm preference={preference} />
-      </GlassCard>
+      </Card>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useTransition, useEffect, useRef } from "react";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { analyzeExistingResumeAction } from "@/app/actions/analyze-existing";
 import ResumeVault from "@/app/dashboard/ResumeVault";
@@ -80,14 +80,14 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
 
   if (!initialResume) {
     return (
-      <GlassCard variant="strong" style={{ padding: '3rem', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--destructive)', marginBottom: '1rem' }}>No Resume Found</h2>
+      <Card style={{ padding: '3rem', textAlign: 'center', backgroundColor: 'var(--background)', border: '1px solid var(--border)' }}>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--error, #DC2626)', marginBottom: '1rem' }}>No Resume Found</h2>
         <p style={{ color: 'var(--muted-foreground)', marginBottom: '1.5rem' }}>You need to upload a base resume before you can analyze it.</p>
         <button onClick={() => setIsResumeModalOpen(true)} style={{ padding: '0.75rem 1.5rem', background: 'var(--primary)', border: 'none', color: 'white', borderRadius: '8px', cursor: 'pointer', fontWeight: 500 }}>
           Upload Base Resume
         </button>
         <ResumeVault initialResume={initialResume} isOpen={isResumeModalOpen} onClose={() => setIsResumeModalOpen(false)} />
-      </GlassCard>
+      </Card>
     );
   }
 
@@ -95,17 +95,17 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       
       {/* Analyze Section */}
-      <GlassCard variant="strong" style={{ padding: '2rem' }}>
+      <Card style={{ padding: '2rem', backgroundColor: 'var(--background)', border: '1px solid var(--border)' }}>
         <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--foreground)', marginBottom: '1.5rem' }}>Target Role Simulation</h2>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           
-          <div style={{ padding: '1rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ padding: '1rem', backgroundColor: 'var(--secondary, #F9FAFB)', border: '1px solid var(--border)', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <div style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.25rem' }}>Using Active Base Resume</div>
               <div style={{ fontSize: '1rem', fontWeight: 500, color: 'var(--foreground)' }}>Version: {initialResume.version}</div>
             </div>
-            <button onClick={() => setIsResumeModalOpen(true)} style={{ fontSize: '0.85rem', color: 'var(--primary)', background: 'transparent', border: 'none', cursor: 'pointer' }}>Change Resume</button>
+            <button onClick={() => setIsResumeModalOpen(true)} style={{ fontSize: '0.85rem', color: 'var(--primary)', background: 'transparent', border: 'none', cursor: 'pointer', fontWeight: 500 }}>Change Resume</button>
           </div>
 
           <div style={{ position: 'relative' }} ref={dropdownRef}>
@@ -122,16 +122,16 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
               }}
               onFocus={() => setShowDropdown(true)}
               style={{
-                width: '100%', padding: '0.75rem', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: 'var(--foreground)'
+                width: '100%', padding: '0.75rem', backgroundColor: 'var(--background)', border: '1px solid var(--border)', borderRadius: '8px', color: 'var(--foreground)'
               }}
             />
             {showDropdown && filteredRoles.length > 0 && (
               <div style={{
                 position: 'absolute', top: '100%', left: 0, right: 0, marginTop: '0.5rem',
-                background: 'rgba(20, 20, 25, 0.8)', backdropFilter: 'blur(16px)',
-                border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px',
+                backgroundColor: 'var(--background)',
+                border: '1px solid var(--border)', borderRadius: '8px',
                 maxHeight: '200px', overflowY: 'auto', zIndex: 50,
-                boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+                boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)'
               }}>
                 {filteredRoles.map(role => (
                   <div 
@@ -141,11 +141,11 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
                       setShowDropdown(false);
                     }}
                     style={{
-                      padding: '0.75rem 1rem', cursor: 'pointer', fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)',
-                      borderBottom: '1px solid rgba(255,255,255,0.05)'
+                      padding: '0.75rem 1rem', cursor: 'pointer', fontSize: '0.9rem', color: 'var(--foreground)',
+                      borderBottom: '1px solid var(--border)'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
                     {role}
                   </div>
@@ -154,7 +154,7 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
             )}
           </div>
 
-          {error && <div style={{ color: 'var(--destructive)', fontSize: '0.9rem' }}>{error}</div>}
+          {error && <div style={{ color: 'var(--error, #DC2626)', fontSize: '0.9rem' }}>{error}</div>}
 
           <Button variant="primary" onClick={handleAnalyze} disabled={isPending || !targetRole}>
             {isPending ? (
@@ -162,22 +162,23 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
             ) : "Analyze Resume"}
           </Button>
         </div>
-      </GlassCard>
+      </Card>
 
       {/* Analysis Results */}
       {(atsScore !== null || analysis) && (
-        <GlassCard variant="strong" style={{ padding: '2rem', border: '1px solid rgba(168, 85, 247, 0.4)' }}>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#a855f7', marginBottom: '1.5rem' }}>AI Analysis Results</h2>
+        <Card style={{ padding: '2rem', border: '1px solid var(--primary)', backgroundColor: 'var(--background)' }}>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--primary)', marginBottom: '1.5rem' }}>AI Analysis Results</h2>
           
           <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
             {atsScore !== null && (
               <div style={{ 
                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                width: '120px', height: '120px', borderRadius: '50%', border: `8px solid ${atsScore > 75 ? 'var(--success)' : atsScore > 50 ? 'var(--warning)' : 'var(--destructive)'}`,
-                background: 'rgba(0,0,0,0.3)'
+                width: '120px', height: '120px', borderRadius: '50%', 
+                border: `8px solid ${atsScore > 75 ? 'var(--success, #059669)' : atsScore > 50 ? 'var(--warning, #D97706)' : 'var(--error, #DC2626)'}`,
+                backgroundColor: 'var(--secondary, #F9FAFB)'
               }}>
-                <span style={{ fontSize: '2rem', fontWeight: 800 }}>{atsScore}</span>
-                <span style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)' }}>ATS SCORE</span>
+                <span style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--foreground)' }}>{atsScore}</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)', fontWeight: 600 }}>ATS SCORE</span>
               </div>
             )}
             
@@ -189,7 +190,7 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
                   <h4 style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--muted-foreground)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Missing Key Skills</h4>
                   <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                     {missingSkills.map((skill, i) => (
-                      <span key={i} style={{ padding: '0.25rem 0.75rem', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '99px', fontSize: '0.8rem', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+                      <span key={i} style={{ padding: '0.25rem 0.75rem', backgroundColor: '#FEF2F2', color: '#DC2626', borderRadius: '999px', fontSize: '0.8rem', border: '1px solid #FCA5A5', fontWeight: 500 }}>
                         {skill}
                       </span>
                     ))}
@@ -200,7 +201,7 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
               {recommendations && recommendations.length > 0 && (
                 <div>
                   <h4 style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--muted-foreground)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>AI Recommendations</h4>
-                  <ul style={{ paddingLeft: '1.2rem', margin: 0, fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <ul style={{ paddingLeft: '1.2rem', margin: 0, fontSize: '0.9rem', color: 'var(--muted-foreground)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     {recommendations.map((rec, i) => (
                       <li key={i}>{rec}</li>
                     ))}
@@ -209,30 +210,30 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
               )}
             </div>
           </div>
-        </GlassCard>
+        </Card>
       )}
 
       {/* Current Active Resume Text */}
-      <GlassCard variant="strong" style={{ padding: '2rem' }}>
+      <Card style={{ padding: '2rem', backgroundColor: 'var(--background)', border: '1px solid var(--border)' }}>
         <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--foreground)', marginBottom: '1rem' }}>Parsed Resume Text</h2>
         <p style={{ fontSize: '0.85rem', color: 'var(--muted-foreground)', marginBottom: '1.5rem' }}>
           This is the raw text the AI extracted from your Base Resume. It will use this to generate customized resumes.
         </p>
         <div style={{ 
-          background: 'rgba(0,0,0,0.2)', 
+          backgroundColor: '#F9FAFB', 
           padding: '1.5rem', 
           borderRadius: '8px', 
-          fontFamily: 'monospace', 
+          fontFamily: 'var(--font-mono, monospace)', 
           fontSize: '0.85rem', 
           color: 'var(--muted-foreground)',
           whiteSpace: 'pre-wrap',
           maxHeight: '400px',
           overflowY: 'auto',
-          border: '1px solid rgba(255,255,255,0.05)'
+          border: '1px solid var(--border)'
         }}>
           {initialResume.originalContent}
         </div>
-      </GlassCard>
+      </Card>
 
       <ResumeVault initialResume={initialResume} isOpen={isResumeModalOpen} onClose={() => setIsResumeModalOpen(false)} />
 

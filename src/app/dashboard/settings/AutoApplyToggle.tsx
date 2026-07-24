@@ -37,24 +37,25 @@ export function AutoApplyToggle({ initialValue }: AutoApplyToggleProps) {
           width: '50px',
           height: '26px',
           borderRadius: '13px',
-          background: isAuto ? 'var(--primary-glow)' : 'rgba(255, 255, 255, 0.1)',
+          backgroundColor: isAuto ? 'var(--primary)' : 'var(--border, #D1D5DB)',
           position: 'relative',
           cursor: loading ? 'wait' : 'pointer',
-          transition: 'background 0.3s ease'
+          transition: 'background-color 0.3s ease'
         }}
       >
         <div style={{
           width: '22px',
           height: '22px',
           borderRadius: '50%',
-          background: '#fff',
+          backgroundColor: '#fff',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
           position: 'absolute',
           top: '2px',
           left: isAuto ? '26px' : '2px',
           transition: 'left 0.3s ease'
         }} />
       </div>
-      <span style={{ fontSize: '0.9rem', color: isAuto ? '#fff' : 'var(--muted-foreground)' }}>
+      <span style={{ fontSize: '0.9rem', color: isAuto ? 'var(--foreground)' : 'var(--muted-foreground)', fontWeight: 500 }}>
         {isAuto ? "Auto Apply (No Human Review)" : "Manual Verification"}
       </span>
     </div>

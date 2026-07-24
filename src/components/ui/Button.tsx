@@ -1,102 +1,54 @@
 "use client";
-import { motion, HTMLMotionProps } from "framer-motion";
-import React, { useId } from "react";
-import { springPhysics } from "./GlassCard";
-import { LiquidGlassFilter } from "./LiquidGlassFilter";
 
-interface ButtonProps extends HTMLMotionProps<"button"> {
-  variant?: "primary" | "glass" | "ghost" | "outline" | "danger" | "secondary";
+import React from "react";
+import { motion, HTMLMotionProps } from "framer-motion";
+import styles from "./components.module.css";
+
+interface ButtonProps extends Omit<HTMLMotionProps<"button">, "ref" | "children"> {
+  variant?: "primary" | "secondary" | "ghost" | "outline" | "danger";
   size?: "sm" | "md" | "lg" | "icon";
+  isLoading?: boolean;
+  icon?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-const smoothSpring = { type: "spring" as const, damping: 30, stiffness: 200, mass: 0.8 };
+export function Button({
+  variant = "primary",
+  size = "md",
+  isLoading = false,
+  icon,
+  children,
+  className,
+  disabled,
+  ...props
+}: ButtonProps) {
+  const variantClass = {
+    primary: styles.btnPrimary,
+    secondary: styles.btnSecondary,
+    ghost: styles.btnGhost,
+    outline: styles.btnOutline,
+    danger: styles.btnDanger,
+  }[variant];
 
-export function Button({ children, variant = "primary", size = "md", className = "", style, ...props }: ButtonProps) {
-  const filterId = useId().replace(/:/g, "");
-  const isGlass = variant === "glass" || variant === "secondary";
-
-  const baseStyle: React.CSSProperties = {
-    fontWeight: 600,
-    cursor: "pointer",
-    outline: "none",
-    position: "relative",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "0.5rem",
-    letterSpacing: "0.02em",
-    border: "none",
-  };
-
-  const sizes = {
-    sm: { padding: "0.5rem 1rem", fontSize: "0.85rem", borderRadius: "999px" },
-    md: { padding: "0.85rem 1.75rem", fontSize: "0.95rem", borderRadius: "999px" },
-    lg: { padding: "1rem 2rem", fontSize: "1.05rem", borderRadius: "999px" },
-    icon: { width: "44px", height: "44px", borderRadius: "999px", padding: "0" }
-  };
-
-  let customClass = "";
-  let variantStyle: React.CSSProperties = {};
-  let hoverStyle: { scale?: number; filter?: string; boxShadow?: string; background?: string; color?: string; border?: string } = { scale: 1.02, filter: "brightness(1.08)" };
-
-  if (variant === "primary") {
-    customClass = "liquid-shine";
-    variantStyle = {
-      background: "var(--gradient-vivid)",
-      boxShadow: "0 8px 32px -8px hsla(350, 96%, 60%, 0.5), inset 0 1px 0 0 hsla(0, 0%, 100%, 0.25)",
-      color: "var(--primary-foreground)",
-    };
-    hoverStyle = {
-      scale: 1.03,
-      boxShadow: "0 12px 48px -8px hsla(350, 96%, 60%, 0.7), inset 0 1px 0 0 hsla(0, 0%, 100%, 0.35)",
-      filter: "brightness(1.08)"
-    };
-  } else if (isGlass) {
-    customClass = "glass-pill";
-    variantStyle = { 
-      color: "var(--foreground)",
-      backdropFilter: `url(#glass-filter-${filterId})`,
-      WebkitBackdropFilter: `url(#glass-filter-${filterId})`,
-    };
-    hoverStyle = { scale: 1.02, background: "rgba(100, 160, 255, 0.12)", boxShadow: "0 8px 24px -8px rgba(80, 140, 255, 0.4)" };
-  } else if (variant === "ghost") {
-    variantStyle = {
-      background: "transparent",
-      border: "1px solid transparent",
-      color: "rgba(255,255,255,0.8)",
-    };
-    hoverStyle = { scale: 1.02, background: "rgba(100, 160, 255, 0.08)", border: "1px solid rgba(120, 180, 255, 0.15)", color: "var(--foreground)" };
-  } else if (variant === "outline") {
-    variantStyle = {
-      background: "transparent",
-      border: "1px solid rgba(255, 255, 255, 0.2)",
-      color: "var(--foreground)",
-    };
-    hoverStyle = { scale: 1.02, background: "rgba(255, 255, 255, 0.05)" };
-  } else if (variant === "danger") {
-    customClass = "liquid-shine";
-    variantStyle = {
-      background: "hsla(0, 84%, 60%, 0.9)",
-      boxShadow: "0 4px 20px rgba(239, 68, 68, 0.4)",
-      color: "#fff",
-    };
-    hoverStyle = { scale: 1.02, background: "var(--error)" };
-  }
+  const sizeClass = {
+    sm: styles.btnSm,
+    md: styles.btnMd,
+    lg: styles.btnLg,
+    icon: styles.btnIcon,
+  }[size];
 
   return (
-    <>
-      {isGlass && <LiquidGlassFilter id={`glass-filter-${filterId}`} />}
-      <motion.button
-        id={isGlass ? `glass-filter-${filterId}` : undefined}
-        style={{ ...baseStyle, ...sizes[size], ...variantStyle, ...style }}
-        className={`${customClass} ${className}`}
-        transition={smoothSpring}
-        whileHover={hoverStyle}
-        whileTap={{ scale: 0.97 }}
-        {...props}
-      >
-        {children}
-      </motion.button>
-    </>
+    <motion.button
+      className={`${styles.btn} ${variantClass} ${sizeClass} ${className || ""}`}
+      disabled={disabled || isLoading}
+      whileHover={!disabled && !isLoading ? { scale: 1.02 } : undefined}
+      whileTap={!disabled && !isLoading ? { scale: 0.98 } : undefined}
+      transition={{ duration: 0.15 }}
+      {...props}
+    >
+      {isLoading && <span className="spinner" />}
+      {!isLoading && icon && <span style={{ display: "flex", alignItems: "center" }}>{icon}</span>}
+      {children}
+    </motion.button>
   );
 }

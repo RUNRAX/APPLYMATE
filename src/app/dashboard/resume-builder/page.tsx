@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
@@ -367,14 +367,14 @@ export default function ResumeBuilderPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', position: 'relative' }}>
       <div>
-        <h1 className="font-display" style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>Interactive Resume Builder</h1>
+        <h1 className="font-display" style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '0.5rem', letterSpacing: '-0.02em', color: 'var(--foreground)' }}>Interactive Resume Builder</h1>
         <p style={{ color: 'var(--muted-foreground)' }}>Upload your resume and a job description to get a perfectly tailored PDF instantly.</p>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         {/* Top: Input Form */}
-        <GlassCard variant="strong" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2rem' }}>
-          <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600 }}>1. Provide Details</h3>
+        <Card style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2rem' }}>
+          <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--foreground)' }}>1. Provide Details</h3>
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', flex: 1 }}>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -384,8 +384,8 @@ export default function ResumeBuilderPage() {
                 onChange={e => setJobDescription(e.target.value)}
                 placeholder="Paste the full job description here..."
                 style={{ 
-                  width: '100%', minHeight: '200px', background: 'rgba(255,255,255,0.05)', 
-                  border: '1px solid var(--glass-border)', borderRadius: '8px', padding: '1rem', 
+                  width: '100%', minHeight: '200px', background: 'var(--background-secondary)', 
+                  border: '1px solid var(--border)', borderRadius: '8px', padding: '1rem', 
                   color: 'var(--foreground)', resize: 'vertical', fontFamily: 'inherit'
                 }}
               />
@@ -394,8 +394,8 @@ export default function ResumeBuilderPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <label style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--foreground)' }}>Original Resume (PDF)</label>
               <div style={{ 
-                border: '1px dashed var(--glass-border)', borderRadius: '8px', padding: '1.5rem', 
-                textAlign: 'center', background: 'rgba(255,255,255,0.02)'
+                border: '1px dashed var(--border)', borderRadius: '8px', padding: '1.5rem', 
+                textAlign: 'center', background: 'var(--background-secondary)'
               }}>
                 <input 
                   type="file" 
@@ -406,14 +406,14 @@ export default function ResumeBuilderPage() {
                 />
                 <label htmlFor="pdfUpload" style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
                   <FileText size={24} color="var(--primary)" />
-                  <span style={{ fontSize: '0.95rem' }}>
+                  <span style={{ fontSize: '0.95rem', color: 'var(--foreground)' }}>
                     {pdfFile ? pdfFile.name : "Click to select your PDF resume"}
                   </span>
                 </label>
               </div>
             </div>
 
-            {error && <div style={{ color: '#ef4444', fontSize: '0.9rem', background: 'rgba(239, 68, 68, 0.1)', padding: '0.75rem', borderRadius: '8px' }}>{error}</div>}
+            {error && <div style={{ color: '#DC2626', fontSize: '0.9rem', background: '#FEF2F2', padding: '0.75rem', borderRadius: '8px' }}>{error}</div>}
 
             <div style={{ marginTop: 'auto' }}>
               <Button type="submit" variant="primary" style={{ width: '100%', display: 'flex', gap: '0.5rem', justifyContent: 'center' }} disabled={loading}>
@@ -422,11 +422,11 @@ export default function ResumeBuilderPage() {
               </Button>
             </div>
           </form>
-        </GlassCard>
+        </Card>
 
         {/* Bottom: Results */}
-        <GlassCard variant="strong" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2rem', overflow: 'hidden', position: 'relative', minHeight: '600px' }}>
-          <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600 }}>2. Result</h3>
+        <Card style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2rem', overflow: 'hidden', position: 'relative', minHeight: '600px' }}>
+          <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--foreground)' }}>2. Result</h3>
           
           {!result && !loading && (
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--muted-foreground)', gap: '1rem' }}>
@@ -445,11 +445,11 @@ export default function ResumeBuilderPage() {
           {result && (
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, gap: '1.5rem', animation: 'fade-up 0.5s ease-out' }}>
               
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', border: '1px solid var(--glass-border)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.5rem', background: 'var(--background-secondary)', borderRadius: '12px', border: '1px solid var(--border)' }}>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
                   <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--muted-foreground)' }}>Baseline ATS</span>
-                  <span style={{ fontSize: '2rem', fontWeight: 700, color: '#ef4444' }}>{result.originalAtsScore}%</span>
+                  <span style={{ fontSize: '2rem', fontWeight: 700, color: '#DC2626' }}>{result.originalAtsScore}%</span>
                 </div>
 
                 <div style={{ color: 'var(--muted-foreground)' }}>
@@ -458,7 +458,7 @@ export default function ResumeBuilderPage() {
 
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
                   <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--muted-foreground)' }}>Current ATS</span>
-                  <span style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--success)', textShadow: '0 0 20px rgba(16, 185, 129, 0.3)' }}>{result.tailoredAtsScore}%</span>
+                  <span style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--success)' }}>{result.tailoredAtsScore}%</span>
                 </div>
 
               </div>
@@ -473,8 +473,8 @@ export default function ResumeBuilderPage() {
                 <div 
                   ref={scrollContainerRef}
                   style={{ 
-                  flex: 1, height: '600px', overflowY: 'auto', background: 'transparent', 
-                  borderRadius: '8px', padding: '1rem', border: '1px solid var(--glass-border)'
+                  flex: 1, height: '600px', overflowY: 'auto', background: 'var(--background-secondary)', 
+                  borderRadius: '8px', padding: '1rem', border: '1px solid var(--border)'
                 }}>
                   <div ref={scaleWrapperRef} className="scale-wrapper" style={{ transform: 'scale(1)', transformOrigin: 'top center', margin: '0 auto', width: 'fit-content' }}>
                     {/* The actual printable area */}
@@ -487,7 +487,7 @@ export default function ResumeBuilderPage() {
                         padding: '40px',
                         width: '210mm',
                         minHeight: '297mm',
-                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                        boxShadow: 'var(--shadow-md)',
                         fontFamily: 'Arial, Helvetica, sans-serif',
                       }}
                     >
@@ -501,6 +501,7 @@ export default function ResumeBuilderPage() {
                             font-variant: normal !important;
                             font-feature-settings: normal !important;
                             letter-spacing: normal !important;
+                            color: #000000 !important;
                           }
                           .resume-preview code, .resume-preview pre {
                             font-family: Arial, Helvetica, sans-serif !important;
@@ -532,7 +533,7 @@ export default function ResumeBuilderPage() {
                 </div>
               </div>
 
-              <Button onClick={handleDownload} variant="glass" style={{ width: '100%', display: 'flex', gap: '0.5rem', justifyContent: 'center', background: 'var(--gradient-vivid)' }}>
+              <Button onClick={handleDownload} variant="primary" style={{ width: '100%', display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
                 <Download size={18} />
                 Download Formatted PDF
               </Button>
@@ -552,9 +553,9 @@ export default function ResumeBuilderPage() {
                 {isCopilotOpen ? (
                   <div style={{ 
                     display: 'flex', flexDirection: 'column', gap: '1rem', 
-                    background: 'rgba(20, 20, 30, 0.85)', backdropFilter: 'blur(16px)',
-                    padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)',
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px inset rgba(255,255,255,0.05)',
+                    background: '#FFFFFF',
+                    padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--border)',
+                    boxShadow: 'var(--shadow-lg)',
                     height: '500px'
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
@@ -564,20 +565,20 @@ export default function ResumeBuilderPage() {
                         </div>
                         <div>
                           <h3 style={{ fontSize: '1.1rem', margin: 0, color: 'var(--foreground)' }}>Resume Copilot</h3>
-                          <p style={{ fontSize: '0.8rem', margin: 0, color: 'var(--foreground-muted)' }}>Real-time formatting agent</p>
+                          <p style={{ fontSize: '0.8rem', margin: 0, color: 'var(--muted-foreground)' }}>Real-time formatting agent</p>
                         </div>
                       </div>
                       <div style={{ display: 'flex', gap: '0.25rem' }}>
                         <button 
                           onClick={() => setMessages([])}
                           title="Clear Chat History"
-                          style={{ background: 'none', border: 'none', color: 'var(--foreground-muted)', cursor: 'pointer', padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '4px' }}
+                          style={{ background: 'none', border: 'none', color: 'var(--muted-foreground)', cursor: 'pointer', padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '4px' }}
                         >
                           <Trash2 size={16} />
                         </button>
                         <button 
                           onClick={() => setIsCopilotOpen(false)}
-                          style={{ background: 'none', border: 'none', color: 'var(--foreground-muted)', cursor: 'pointer', padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '4px' }}
+                          style={{ background: 'none', border: 'none', color: 'var(--muted-foreground)', cursor: 'pointer', padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '4px' }}
                         >
                           ✕
                         </button>
@@ -596,7 +597,7 @@ export default function ResumeBuilderPage() {
                         return (
                           <div key={idx} style={{
                             alignSelf: isUser ? 'flex-end' : 'flex-start',
-                            background: isUser ? 'var(--primary)' : 'rgba(255,255,255,0.05)',
+                            background: isUser ? 'var(--primary)' : '#F3F4F6',
                             color: isUser ? '#fff' : 'var(--foreground)',
                             padding: '0.75rem 1rem',
                             borderRadius: '12px',
@@ -621,8 +622,8 @@ export default function ResumeBuilderPage() {
                       {rateLimitWait !== null && (
                         <div style={{
                           alignSelf: 'flex-start',
-                          background: 'rgba(239, 68, 68, 0.1)',
-                          color: '#ef4444',
+                          background: '#FFFBEB',
+                          color: '#D97706',
                           padding: '0.75rem 1rem',
                           borderRadius: '12px',
                           borderBottomLeftRadius: '2px',
@@ -645,8 +646,8 @@ export default function ResumeBuilderPage() {
                         onChange={(e) => setInput(e.target.value)}
                         placeholder="Tell Copilot what to change..."
                         style={{ 
-                          width: '100%', minHeight: '80px', background: 'rgba(0,0,0,0.2)', 
-                          border: '1px solid var(--glass-border)', borderRadius: '8px', padding: '0.75rem', 
+                          width: '100%', minHeight: '80px', background: 'var(--background-secondary)', 
+                          border: '1px solid var(--border)', borderRadius: '8px', padding: '0.75rem', 
                           color: 'var(--foreground)', resize: 'none', fontFamily: 'inherit', fontSize: '0.9rem'
                         }}
                         disabled={isChatLoading}
@@ -663,7 +664,7 @@ export default function ResumeBuilderPage() {
                     variant="primary" 
                     style={{ 
                       borderRadius: '30px', padding: '0.75rem 1.5rem', display: 'flex', gap: '0.5rem', 
-                      boxShadow: '0 8px 30px rgba(99, 102, 241, 0.4)' 
+                      boxShadow: '0 8px 30px rgba(79, 70, 229, 0.4)' 
                     }}
                   >
                     <MessageSquare size={20} />
@@ -673,7 +674,7 @@ export default function ResumeBuilderPage() {
               </div>
             </div>
           )}
-        </GlassCard>
+        </Card>
       </div>
     </div>
   );

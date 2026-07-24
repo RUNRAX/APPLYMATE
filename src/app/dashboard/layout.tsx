@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, useId } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,19 +13,26 @@ import {
   SlidersHorizontal,
   Lock,
   LogOut,
-  Bell,
   Search,
   FileEdit,
   Sparkles,
+  Menu,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
-// Removed LiquidGlassFilter to fix clipping
 import { NotificationBell } from "./NotificationBell";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { data: session } = useSession();
-  const filterId = useId().replace(/:/g, "");
+  
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   const navItems = [
     { label: 'Overview', href: '/dashboard', icon: LayoutDashboard, end: true },
@@ -44,18 +51,32 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className={styles.dashboardOuter}>
-      {/* Background Orbs for Glassmorphism Refraction */}
-      <div style={{ position: 'fixed', top: '20%', left: '-5%', width: '30vw', height: '30vw', background: 'radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(0,0,0,0) 70%)', borderRadius: '50%', zIndex: 0, pointerEvents: 'none' }} />
-      <div style={{ position: 'fixed', top: '10%', left: '20%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(0,0,0,0) 70%)', borderRadius: '50%', zIndex: 0, pointerEvents: 'none' }} />
-      <div style={{ position: 'fixed', bottom: '-10%', right: '10%', width: '35vw', height: '35vw', background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0,0,0,0) 70%)', borderRadius: '50%', zIndex: 0, pointerEvents: 'none' }} />
-      <div style={{ position: 'fixed', top: '40%', right: '30%', width: '25vw', height: '25vw', background: 'radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, rgba(0,0,0,0) 70%)', borderRadius: '50%', zIndex: 0, pointerEvents: 'none' }} />
-      
-      {/* SVG filter removed to prevent header clipping */}
-      
-      {/* Sidebar — floating glass-strong card */}
-      <aside className={`glass-strong ${styles.sidebar}`}>
+      {/* Mobile overlay */}
+      <div 
+        className={`${styles.mobileSidebarOverlay} ${isMobileMenuOpen ? styles.mobileOpen : ''}`} 
+        onClick={() => setIsMobileMenuOpen(false)}
+      />
+
+      {/* Sidebar */}
+      <aside className={`${styles.sidebar} ${isSidebarCollapsed ? styles.sidebarCollapsed : ''} ${isMobileMenuOpen ? styles.mobileOpen : ''}`}>
         <div className={styles.sidebarHeader}>
-          <Logo />
+          <div style={{ 
+            opacity: isSidebarCollapsed ? 0 : 1, 
+            width: isSidebarCollapsed ? 0 : 'auto',
+            overflow: 'hidden',
+            transition: 'all 0.2s',
+            whiteSpace: 'nowrap'
+          }}>
+            <Logo />
+          </div>
+          
+          <button 
+            className={styles.collapseBtn} 
+            onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+            aria-label="Toggle sidebar"
+          >
+            {isSidebarCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+          </button>
         </div>
 
         <nav className={styles.sidebarNav}>
@@ -70,9 +91,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 key={item.label}
                 href={item.href}
                 className={`${styles.navLink} ${isActive ? styles.active : ''}`}
+                title={isSidebarCollapsed ? item.label : undefined}
               >
                 <Icon className={styles.navIcon} />
-                {item.label}
+                {!isSidebarCollapsed && item.label}
               </Link>
             );
           })}
@@ -83,74 +105,80 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             <div className={styles.userAvatar}>
               {session?.user?.name?.charAt(0) || session?.user?.email?.charAt(0) || 'U'}
             </div>
-            <div style={{ minWidth: 0, flex: 1 }}>
-              <div className={styles.userName}>
-                {session?.user?.name || 'User'}
+            {!isSidebarCollapsed && (
+              <div style={{ minWidth: 0, flex: 1 }}>
+                <div className={styles.userName}>
+                  {session?.user?.name || 'User'}
+                </div>
+                <div className={styles.userEmail}>
+                  {session?.user?.email}
+                </div>
               </div>
-              <div className={styles.userEmail}>
-                {session?.user?.email}
-              </div>
-            </div>
+            )}
           </div>
           <button
             onClick={() => signOut({ callbackUrl: '/' })}
             className={styles.signOutBtn}
+            title={isSidebarCollapsed ? "Sign out" : undefined}
           >
-            <LogOut style={{ width: '0.875rem', height: '0.875rem' }} />
-            Sign out
+            <LogOut className={styles.navIcon} />
+            {!isSidebarCollapsed && "Sign out"}
           </button>
         </div>
       </aside>
 
       {/* Main Content */}
       <main className={styles.mainContent}>
+        {/* Header */}
+        <header className={styles.header}>
+          <div className={styles.headerLeft}>
+            <button 
+              className={styles.mobileMenuBtn}
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open menu"
+            >
+              <Menu size={20} />
+            </button>
+            <div className={styles.headerTitle}>
+              {currentPage?.label || 'Overview'}
+            </div>
+          </div>
+          <div className={styles.headerActions}>
+            {/* Search bar */}
+            <div className={styles.searchBar}>
+              <Search className={styles.searchIcon} />
+              <input
+                placeholder="Search jobs, companies…"
+                className={styles.searchInput}
+              />
+            </div>
+
+            {/* Agent Active badge */}
+            <div className={styles.agentBadge}>
+              <span className={styles.agentDot}>
+                <span className={styles.agentDotPing} />
+                <span className={styles.agentDotCore} />
+              </span>
+              <span>Agent Active</span>
+            </div>
+
+            {/* Notification bell */}
+            <NotificationBell />
+          </div>
+        </header>
+
         <div className={styles.scrollArea}>
-          {/* Header */}
-          <header className={styles.header}>
-            <div className={styles.headerGlow} />
-            <div className={styles.headerLeft}>
-              <div className={styles.headerLabel}>Dashboard</div>
-              <div className={styles.headerTitle}>
-                {currentPage?.label || 'Overview'}
-              </div>
-            </div>
-            <div className={styles.headerActions}>
-              {/* Search bar */}
-              <div className={`glass-pill ${styles.searchBar}`}>
-                <Search style={{ width: '0.875rem', height: '0.875rem', color: 'rgba(255,255,255,0.5)' }} />
-                <input
-                  placeholder="Search jobs, companies…"
-                  className={styles.searchInput}
-                />
-              </div>
-
-              {/* Agent Active badge */}
-              <div className={`glass-pill ${styles.agentBadge}`}>
-                <span className={styles.agentDot}>
-                  <span className={styles.agentDotPing} />
-                  <span className={styles.agentDotCore} />
-                </span>
-                <span style={{ fontWeight: 600, color: 'var(--success)' }}>Agent Active</span>
-              </div>
-
-              {/* Notification bell */}
-              <NotificationBell />
-            </div>
-          </header>
-
-          <motion.div
-            key={pathname}
-            initial={{ opacity: 0, y: 20, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ 
-              duration: 0.45, 
-              ease: [0.22, 1, 0.36, 1],
-              scale: { duration: 0.4 }
-            }}
-            style={{ padding: '0 1.5rem 2rem 1.5rem' }}
-          >
-            {children}
-          </motion.div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={pathname}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+            >
+              {children}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </main>
     </div>

@@ -1,0 +1,623 @@
+/* ═══════════════════════════════════════════
+   Shared UI Components — CSS Module
+   Clean white/black/indigo design system
+   ═══════════════════════════════════════════ */
+
+/* ─── Button ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  text-decoration: none;
+  line-height: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Sizes */
+.btnSm {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  border-radius: var(--radius-sm);
+}
+
+.btnMd {
+  padding: 0.6rem 1.25rem;
+  font-size: 0.875rem;
+  border-radius: var(--radius-sm);
+}
+
+.btnLg {
+  padding: 0.75rem 1.75rem;
+  font-size: 0.95rem;
+  border-radius: var(--radius);
+}
+
+.btnIcon {
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  width: 36px;
+  height: 36px;
+}
+
+/* Variants */
+.btnPrimary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: var(--shadow-sm);
+}
+.btnPrimary:hover {
+  background: var(--primary-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.btnSecondary {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+.btnSecondary:hover {
+  background: var(--background-secondary);
+  border-color: var(--border-strong);
+}
+
+.btnGhost {
+  background: transparent;
+  color: var(--foreground);
+}
+.btnGhost:hover {
+  background: var(--background-tertiary);
+}
+
+.btnOutline {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+.btnOutline:hover {
+  background: var(--primary-light);
+}
+
+.btnDanger {
+  background: var(--error);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+}
+.btnDanger:hover {
+  background: #B91C1C;
+}
+
+/* ─── Card ─── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+}
+
+.cardElevated {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 1.5rem;
+}
+
+.cardOutlined {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.cardInteractive {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+.cardInteractive:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+
+/* ─── Input ─── */
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.inputLabel {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 0.75rem;
+  color: var(--text-muted);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  outline: none;
+  line-height: 1.5;
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.inputWithIcon {
+  padding-left: 2.5rem;
+}
+
+.inputError {
+  border-color: var(--error) !important;
+}
+.inputError:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
+}
+
+.inputErrorText {
+  font-size: 0.75rem;
+  color: var(--error);
+  margin-top: 0.25rem;
+}
+
+/* ─── Modal ─── */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modalContent {
+  background: var(--background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  width: 100%;
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+  z-index: 201;
+  position: relative;
+}
+
+.modalSm { max-width: 400px; }
+.modalMd { max-width: 560px; }
+.modalLg { max-width: 720px; }
+.modalXl { max-width: 900px; }
+.modalFull { max-width: 90vw; }
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.modalTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.modalClose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.modalClose:hover {
+  background: var(--background-tertiary);
+  color: var(--foreground);
+}
+
+.modalBody {
+  padding: 1.5rem;
+}
+
+/* ─── Dropdown ─── */
+.dropdownWrapper {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
+  overflow: hidden;
+  min-width: 200px;
+}
+
+.dropdownLeft {
+  left: 0;
+  right: auto;
+}
+
+.dropdownHeader {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dropdownBody {
+  padding: 0.5rem;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  color: var(--foreground);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.dropdownItem:hover {
+  background: var(--background-secondary);
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.25rem 0.5rem;
+}
+
+/* ─── Badge ─── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius-full);
+  line-height: 1.4;
+}
+
+.badgeDefault {
+  background: var(--background-tertiary);
+  color: var(--muted-foreground);
+}
+
+.badgePrimary {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.badgeSuccess {
+  background: var(--success-light);
+  color: var(--success-foreground);
+}
+
+.badgeWarning {
+  background: var(--warning-light);
+  color: var(--warning-foreground);
+}
+
+.badgeError {
+  background: var(--error-light);
+  color: var(--error-foreground);
+}
+
+/* ─── StatCard ─── */
+.statCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.25rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.statCardAccent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-accent);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.statCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.statCardLabel {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.statCardIcon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.statCardValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--foreground);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+.statCardTrend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.statCardTrendUp {
+  color: var(--success);
+}
+
+.statCardTrendDown {
+  color: var(--error);
+}
+
+.statCardTrendNeutral {
+  color: var(--text-muted);
+}
+
+/* ─── Status Badge ─── */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius-full);
+  line-height: 1.4;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ─── Toggle Switch ─── */
+.toggleSwitch {
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  background: #D1D5DB;
+  cursor: pointer;
+  transition: background var(--transition-base);
+  position: relative;
+  border: none;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.toggleSwitchActive {
+  background: var(--primary);
+}
+
+.toggleKnob {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform var(--transition-base);
+}
+
+.toggleKnobActive {
+  transform: translateX(20px);
+}
+
+/* ─── Empty State ─── */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.emptyStateIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.emptyStateTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.emptyStateText {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  max-width: 360px;
+  line-height: 1.5;
+}
+
+/* ─── Table ─── */
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table thead th {
+  padding: 0.65rem 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-foreground);
+  background: var(--background-secondary);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.table thead th:first-child {
+  border-top-left-radius: var(--radius-sm);
+}
+
+.table thead th:last-child {
+  border-top-right-radius: var(--radius-sm);
+}
+
+.table tbody td {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background: var(--background-secondary);
+}
+
+/* ─── Progress Bar ─── */
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background: var(--background-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: var(--gradient-accent);
+  border-radius: var(--radius-full);
+  transition: width 0.5s var(--ease-out);
+}
+
+/* ─── Form Group ─── */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.formLabel {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.formHint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ─── Divider ─── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 1.5rem 0;
+}

@@ -1,22 +1,39 @@
 import Link from "next/link";
-import React from "react";
 
-export function Logo({ className = "" }: { className?: string }) {
+interface LogoProps {
+  className?: string;
+}
+
+export function Logo({ className }: LogoProps) {
   return (
-    <Link href="/" className={className} style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+    <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.6rem", textDecoration: "none" }} className={className}>
       <div style={{
-        width: "36px", height: "36px",
-        borderRadius: "10px",
-        background: "var(--gradient-vivid)",
-        boxShadow: "var(--shadow-glow)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        color: "white", fontWeight: 800, fontSize: "1.2rem"
+        width: 32,
+        height: 32,
+        borderRadius: 10,
+        background: "linear-gradient(135deg, #4F46E5, #7C3AED)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "white",
+        fontWeight: 700,
+        fontSize: "1rem",
+        fontFamily: "var(--font-display)",
+        boxShadow: "0 2px 8px rgba(79, 70, 229, 0.3)",
       }}>
         A
       </div>
-      <span className="font-display text-gradient" style={{ fontSize: "1.5rem", fontWeight: 700, letterSpacing: "-0.02em" }}>
+      <span style={{
+        fontSize: "1.15rem",
+        fontWeight: 600,
+        fontFamily: "var(--font-display)",
+        color: "var(--foreground)",
+        letterSpacing: "-0.02em",
+      }}>
         ApplyMate
       </span>
     </Link>
   );
 }
+
+export default Logo;

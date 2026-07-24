@@ -1,12 +1,12 @@
 "use client";
-import { useTransition, useState, useCallback, useRef } from "react";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
+
+import { useTransition, useState, useCallback } from "react";
 import { useSSE } from "@/features/dashboard/useSSE";
 import { motion, AnimatePresence } from "framer-motion";
+import { staggerContainer, staggerItem } from "@/lib/animations";
 import styles from "./dashboard.module.css";
 import { StatCard } from "@/components/ui/StatCard";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { Card } from "@/components/ui/Card";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -28,10 +28,6 @@ interface DashboardClientProps {
   connectedPlatforms?: string[];
 }
 
-
-
-
-
 export default function DashboardClient({ stats, initialResume, connectedPlatforms = [] }: DashboardClientProps) {
   const [isPending, startTransition] = useTransition();
   const [testMessage, setTestMessage] = useState("");
@@ -40,21 +36,6 @@ export default function DashboardClient({ stats, initialResume, connectedPlatfor
   const events = useSSE();
   const { data: session } = useSession();
   const firstName = session?.user?.name?.split(' ')[0] || 'there';
-  
-  const container = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    // Lively GSAP spring stagger for all elements with class .gsap-reveal
-    gsap.from(".gsap-reveal", {
-      y: 40,
-      opacity: 0,
-      scale: 0.95,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: "back.out(1.2)",
-      clearProps: "all"
-    });
-  }, { scope: container });
 
   const handleTestApply = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -70,14 +51,19 @@ export default function DashboardClient({ stats, initialResume, connectedPlatfor
   };
 
   return (
-    <div ref={container} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <motion.div 
+      className={styles.container}
+      variants={staggerContainer}
+      initial="initial"
+      animate="animate"
+    >
       {/* Welcome Hero Banner */}
-      <div className="gsap-reveal">
-        <GlassCard variant="strong" className={styles.welcomeHero} style={{ padding: 0 }}>
-          <div className={styles.heroContent} style={{ padding: '2.5rem 2rem' }}>
+      <motion.div variants={staggerItem}>
+        <Card variant="elevated" className={styles.welcomeHero}>
+          <div className={styles.heroContent}>
             <div className={styles.heroLabel}>Welcome back</div>
             <h1 className={styles.heroTitle}>
-              Hello, <span className="text-gradient-vivid" style={{ fontStyle: 'italic' }}>{firstName}.</span>
+              Hello, <span>{firstName}.</span>
             </h1>
             <p className={styles.heroSubtitle}>
               Your autonomous agent is scanning <strong>{stats.activeBots > 0 ? '42 boards' : '0 boards'}</strong> right now.
@@ -89,16 +75,16 @@ export default function DashboardClient({ stats, initialResume, connectedPlatfor
                   Review Queue <ArrowUpRight size={16} />
                 </Button>
               </Link>
-              <Button variant="glass" size="md" onClick={() => alert("Feature coming soon! (Agent Pause/Resume functionality)")}>
+              <Button variant="outline" size="md" onClick={() => alert("Feature coming soon! (Agent Pause/Resume functionality)")}>
                 Pause Agent
               </Button>
             </div>
           </div>
           
-          <div style={{ padding: '1rem 2rem', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-            <form onSubmit={handleTestApply} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end' }}>
-              <div style={{ flex: 1 }}>
-                <Input name="jobUrl" placeholder="Paste a LinkedIn Job URL to test the bot..." style={{ marginBottom: 0 }} disabled={isPending} required />
+          <div className={styles.testApplySection}>
+            <form onSubmit={handleTestApply} className={styles.testApplyForm}>
+              <div className={styles.inputWrapper}>
+                <Input name="jobUrl" placeholder="Paste a LinkedIn Job URL to test the bot..." disabled={isPending} required />
               </div>
               <Button variant="primary" type="submit" size="md" disabled={isPending}>
                 {isPending ? (
@@ -112,31 +98,30 @@ export default function DashboardClient({ stats, initialResume, connectedPlatfor
               <motion.div 
                 initial={{ opacity: 0, y: -10 }} 
                 animate={{ opacity: 1, y: 0 }} 
-                style={{ color: '#4ade80', fontSize: '0.85rem', marginTop: '0.75rem', fontWeight: 500 }}
+                className={styles.successMessage}
               >
                 ✓ {testMessage}
               </motion.div>
             )}
           </div>
-        </GlassCard>
-      </div>
+        </Card>
+      </motion.div>
 
       {/* Quick Setup Actions */}
-      <div className="gsap-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-        <GlassCard variant="strong" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: stats.activeBots > 0 ? 'rgba(74, 222, 128, 0.1)' : 'rgba(59, 130, 246, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: stats.activeBots > 0 ? '#4ade80' : '#3b82f6' }}>
+      <motion.div variants={staggerItem} className={styles.statsGrid}>
+        <Card className={styles.setupCard}>
+          <div className={styles.setupCardHeader}>
+            <div className={`${styles.setupIcon} ${stats.activeBots > 0 ? styles.iconActive : styles.iconIdle}`}>
               {stats.activeBots > 0 ? <Square size={20} /> : <Play size={20} />}
             </div>
             <div>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>{stats.activeBots > 0 ? "Agent Running" : "Agent Idle"}</h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)' }}>{stats.activeBots > 0 ? "Discovery agent is actively scanning for jobs." : "Start the agent to begin automated job discovery."}</p>
+              <h3 className={styles.setupTitle}>{stats.activeBots > 0 ? "Agent Running" : "Agent Idle"}</h3>
+              <p className={styles.setupDescription}>{stats.activeBots > 0 ? "Discovery agent is actively scanning for jobs." : "Start the agent to begin automated job discovery."}</p>
             </div>
           </div>
-          <div style={{ marginTop: 'auto' }}>
+          <div className={styles.setupAction}>
             <Button 
               variant={stats.activeBots > 0 ? "outline" : "primary"} 
-              style={{ width: '100%', borderColor: stats.activeBots > 0 ? '#ef4444' : undefined, color: stats.activeBots > 0 ? '#ef4444' : undefined }} 
               disabled={agentLoading}
               onClick={async () => {
                 setAgentLoading(true);
@@ -153,74 +138,73 @@ export default function DashboardClient({ stats, initialResume, connectedPlatfor
                   setAgentLoading(false);
                 }
               }}
+              className={styles.fullWidthBtn}
             >
               {agentLoading ? <><span className="spinner"></span> {stats.activeBots > 0 ? 'Stopping...' : 'Starting...'}</> : (stats.activeBots > 0 ? 'Stop Agent' : 'Start Agent')}
             </Button>
           </div>
-        </GlassCard>
+        </Card>
 
-        <GlassCard variant="strong" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(168, 85, 247, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#a855f7' }}>
+        <Card className={styles.setupCard}>
+          <div className={styles.setupCardHeader}>
+            <div className={`${styles.setupIcon} ${styles.iconPurple}`}>
               <FileText size={20} />
             </div>
             <div>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>
+              <h3 className={styles.setupTitle}>
                 {initialResume ? "Resume Uploaded" : "Add Base Resume"}
               </h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)' }}>
+              <p className={styles.setupDescription}>
                 {initialResume 
                   ? "Your active base resume is ready for the agent to use." 
                   : "The agent uses this to tailor a new resume for each job."}
               </p>
             </div>
           </div>
-          <div style={{ marginTop: 'auto' }}>
-            <Button variant={initialResume ? "outline" : "primary"} style={{ width: '100%' }} onClick={() => setIsResumeModalOpen(true)}>
+          <div className={styles.setupAction}>
+            <Button variant={initialResume ? "outline" : "primary"} className={styles.fullWidthBtn} onClick={() => setIsResumeModalOpen(true)}>
               {initialResume ? "Re-upload Resume" : "Upload Resume"}
             </Button>
           </div>
-        </GlassCard>
+        </Card>
 
         {/* Connect Platforms Card */}
-        <GlassCard variant="strong" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(245, 158, 11, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#f59e0b' }}>
+        <Card className={styles.setupCard}>
+          <div className={styles.setupCardHeader}>
+            <div className={`${styles.setupIcon} ${styles.iconAmber}`}>
               <LinkIcon size={20} />
             </div>
             <div>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>
+              <h3 className={styles.setupTitle}>
                 {connectedPlatforms?.includes('company_portal') || connectedPlatforms?.includes('linkedin') ? "Platforms Linked" : "Link Platforms"}
               </h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)' }}>
+              <p className={styles.setupDescription}>
                 {connectedPlatforms?.includes('company_portal') || connectedPlatforms?.includes('linkedin')
                   ? "Your agent has access to job portals." 
                   : "Connect accounts for the agent to use."}
               </p>
             </div>
           </div>
-          <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <Link href="/dashboard/connect/company_portal" style={{ textDecoration: 'none' }}>
-              <Button variant={connectedPlatforms?.includes('company_portal') ? "outline" : "primary"} style={{ width: '100%', borderColor: connectedPlatforms?.includes('company_portal') ? 'var(--success)' : undefined, color: connectedPlatforms?.includes('company_portal') ? 'var(--success)' : undefined }}>
+          <div className={styles.platformActions}>
+            <Link href="/dashboard/connect/company_portal" className={styles.linkUnstyled}>
+              <Button variant={connectedPlatforms?.includes('company_portal') ? "outline" : "primary"} className={styles.fullWidthBtn}>
                 {connectedPlatforms?.includes('company_portal') ? "✓ Google Connected" : "Connect Google"}
               </Button>
             </Link>
-            <Link href="/dashboard/connect/linkedin" style={{ textDecoration: 'none' }}>
-              <Button variant={connectedPlatforms?.includes('linkedin') ? "outline" : "outline"} style={{ width: '100%', borderColor: connectedPlatforms?.includes('linkedin') ? 'var(--success)' : undefined, color: connectedPlatforms?.includes('linkedin') ? 'var(--success)' : undefined }}>
+            <Link href="/dashboard/connect/linkedin" className={styles.linkUnstyled}>
+              <Button variant="outline" className={styles.fullWidthBtn}>
                 {connectedPlatforms?.includes('linkedin') ? "✓ LinkedIn Connected" : "Connect LinkedIn"}
               </Button>
             </Link>
           </div>
-        </GlassCard>
-      </div>
+        </Card>
+      </motion.div>
 
       {/* Resume Vault Modal */}
       <ResumeVault initialResume={initialResume} isOpen={isResumeModalOpen} onClose={() => setIsResumeModalOpen(false)} />
 
-
-
       {/* Stat Cards — 2 column layout */}
-      <div className={`gsap-reveal ${styles.statsGrid}`}>
+      <motion.div variants={staggerItem} className={styles.statsGrid}>
         <StatCard
           label="Total Applied"
           value={stats.totalApplied}
@@ -235,34 +219,33 @@ export default function DashboardClient({ stats, initialResume, connectedPlatfor
           trendValue="Ready to ship"
           icon={<Clock size={20} />}
         />
-      </div>
+      </motion.div>
 
       {/* Bento Grid — Activity + Live Feed */}
-      <div className={`gsap-reveal ${styles.bentoGrid}`}>
-        <GlassCard variant="strong" style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '1.5rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600 }}>Application Activity</h3>
-            <span style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)' }}>Last 7 days</span>
+      <motion.div variants={staggerItem} className={styles.bentoGrid}>
+        <Card className={styles.activityCard}>
+          <div className={styles.cardHeader}>
+            <h3 className={styles.cardTitle}>Application Activity</h3>
+            <span className={styles.cardSubtitle}>Last 7 days</span>
           </div>
-
-          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--muted-foreground)' }}>
+          <div className={styles.activityContent}>
             <p>Gathering application analytics...</p>
           </div>
-        </GlassCard>
+        </Card>
 
-        <GlassCard variant="strong" style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '1.5rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600 }}>Live Event Feed</h3>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--success)', boxShadow: '0 0 8px var(--success)', animation: 'pulse 2s infinite' }}></span>
-              <span style={{ fontSize: '0.75rem', color: 'var(--success)', fontWeight: 600 }}>Live</span>
+        <Card className={styles.liveFeedCard}>
+          <div className={styles.cardHeader}>
+            <h3 className={styles.cardTitle}>Live Event Feed</h3>
+            <div className={styles.liveIndicator}>
+              <span className={styles.pulseDot}></span>
+              <span className={styles.liveText}>Live</span>
             </div>
           </div>
 
-          <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.75rem', paddingRight: '0.5rem', maxHeight: '300px' }}>
+          <div className={styles.feedContent}>
             <AnimatePresence>
               {events.length === 0 ? (
-                <div style={{ color: 'var(--muted-foreground)', fontSize: '0.9rem', textAlign: 'center', padding: '2rem 0' }}>
+                <div className={styles.emptyFeed}>
                   Waiting for live agent events...
                 </div>
               ) : (
@@ -271,29 +254,24 @@ export default function DashboardClient({ stats, initialResume, connectedPlatfor
                     key={i + ev.title}
                     initial={{ opacity: 0, x: -16, height: 0 }}
                     animate={{ opacity: 1, x: 0, height: 'auto' }}
-                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-                    style={{
-                      padding: '0.85rem',
-                      background: 'rgba(255,255,255,0.02)',
-                      border: '1px solid rgba(255,255,255,0.05)',
-                      borderRadius: '12px',
-                    }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className={styles.feedItem}
                   >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                    <div className={styles.feedItemHeader}>
                       <StatusBadge status={ev.type.replace('_', ' ')} />
-                      <span style={{ fontSize: '0.7rem', color: 'var(--muted-foreground)' }}>
+                      <span className={styles.feedTimestamp}>
                         {ev.timestamp || 'Just now'}
                       </span>
                     </div>
-                    <div style={{ fontSize: '0.9rem', fontWeight: 500 }}>{ev.title}</div>
-                    {ev.company && <div style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)', marginTop: '0.2rem' }}>at {ev.company}</div>}
+                    <div className={styles.feedItemTitle}>{ev.title}</div>
+                    {ev.company && <div className={styles.feedItemCompany}>at {ev.company}</div>}
                   </motion.div>
                 ))
               )}
             </AnimatePresence>
           </div>
-        </GlassCard>
-      </div>
-    </div>
+        </Card>
+      </motion.div>
+    </motion.div>
   );
 }

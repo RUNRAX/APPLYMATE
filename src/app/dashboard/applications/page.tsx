@@ -2,7 +2,7 @@ import { auth } from "@/features/auth/auth";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { StatusBadge } from "@/components/ui/StatusBadge";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { Card } from "@/components/ui/Card";
 import styles from "../dashboard.module.css";
 
 export default async function ApplicationsPage() {
@@ -18,48 +18,48 @@ export default async function ApplicationsPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       <div>
-        <h1 className="font-display" style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>Applications</h1>
+        <h1 className="font-display" style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '0.5rem', letterSpacing: '-0.02em', color: 'var(--foreground)' }}>Applications</h1>
         <p style={{ color: 'var(--muted-foreground)' }}>Track and manage all your automated job applications.</p>
       </div>
 
-      <GlassCard variant="strong" style={{ padding: 0, overflow: 'hidden' }}>
+      <Card style={{ padding: 0, overflow: 'hidden', background: 'var(--background)', border: '1px solid var(--border)' }}>
         {applications.length === 0 ? (
           <div style={{ padding: '4rem 2rem', textAlign: 'center', color: 'var(--muted-foreground)' }}>
             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📭</div>
-            <h3 className="font-display" style={{ fontSize: '1.2rem', color: 'var(--foreground)', marginBottom: '0.5rem' }}>No applications yet</h3>
+            <h3 className="font-display" style={{ fontSize: '1.2rem', color: 'var(--foreground)', marginBottom: '0.5rem', fontWeight: 600 }}>No applications yet</h3>
             <p>Your agent will start applying soon. Check back later.</p>
           </div>
         ) : (
-          <div className={styles.tableContainer}>
-            <table className={styles.glassTable}>
+          <div style={{ overflowX: 'auto', width: '100%' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
-                <tr>
-                  <th>Job Title</th>
-                  <th>Company</th>
-                  <th>Platform</th>
-                  <th>Status</th>
-                  <th>Match Score</th>
-                  <th>Date</th>
+                <tr style={{ borderBottom: '1px solid var(--border)', backgroundColor: 'var(--secondary)' }}>
+                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--foreground)', fontSize: '0.875rem' }}>Job Title</th>
+                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--foreground)', fontSize: '0.875rem' }}>Company</th>
+                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--foreground)', fontSize: '0.875rem' }}>Platform</th>
+                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--foreground)', fontSize: '0.875rem' }}>Status</th>
+                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--foreground)', fontSize: '0.875rem' }}>Match Score</th>
+                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--foreground)', fontSize: '0.875rem' }}>Date</th>
                 </tr>
               </thead>
               <tbody>
                 {applications.map((app) => (
-                  <tr key={app.id}>
-                    <td style={{ fontWeight: 500 }}>{app.jobListing.title}</td>
-                    <td style={{ color: 'rgba(255,255,255,0.8)' }}>{app.jobListing.company}</td>
-                    <td style={{ color: 'rgba(255,255,255,0.6)' }}>{app.jobListing.platform}</td>
-                    <td><StatusBadge status={app.status} /></td>
-                    <td>
+                  <tr key={app.id} style={{ borderBottom: '1px solid var(--border)' }}>
+                    <td style={{ padding: '1rem', fontWeight: 500, color: 'var(--foreground)' }}>{app.jobListing.title}</td>
+                    <td style={{ padding: '1rem', color: 'var(--muted-foreground)' }}>{app.jobListing.company}</td>
+                    <td style={{ padding: '1rem', color: 'var(--muted-foreground)' }}>{app.jobListing.platform}</td>
+                    <td style={{ padding: '1rem' }}><StatusBadge status={app.status} /></td>
+                    <td style={{ padding: '1rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <div style={{ width: '100%', maxWidth: '60px', height: '4px', background: 'rgba(255,255,255,0.1)', borderRadius: '2px', overflow: 'hidden' }}>
-                          <div style={{ height: '100%', width: `${app.jobListing.matchScore || 0}%`, background: 'var(--gradient-vivid)' }} />
+                        <div style={{ width: '100%', maxWidth: '60px', height: '6px', backgroundColor: 'var(--secondary)', borderRadius: '999px', overflow: 'hidden' }}>
+                          <div style={{ height: '100%', width: `${app.jobListing.matchScore || 0}%`, backgroundColor: 'var(--primary)', borderRadius: '999px' }} />
                         </div>
-                        <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.8)' }}>
+                        <span style={{ fontSize: '0.875rem', color: 'var(--foreground)', fontWeight: 500 }}>
                           {Math.round(app.jobListing.matchScore || 0)}%
                         </span>
                       </div>
                     </td>
-                    <td style={{ color: 'var(--muted-foreground)', fontSize: '0.9rem' }}>
+                    <td style={{ padding: '1rem', color: 'var(--muted-foreground)', fontSize: '0.875rem' }}>
                       {app.submittedAt ? new Date(app.submittedAt).toLocaleDateString() : 'Pending'}
                     </td>
                   </tr>
@@ -68,7 +68,7 @@ export default async function ApplicationsPage() {
             </table>
           </div>
         )}
-      </GlassCard>
+      </Card>
     </div>
   );
 }

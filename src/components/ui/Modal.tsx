@@ -1,56 +1,80 @@
 "use client";
+
+import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { springPhysics } from "./GlassCard";
-import { useEffect } from "react";
+import { X } from "lucide-react";
+import { scaleIn, fadeIn } from "@/lib/animations";
+import styles from "./components.module.css";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  title?: string;
+  size?: "sm" | "md" | "lg" | "xl" | "full";
 }
 
-export function Modal({ isOpen, onClose, children }: ModalProps) {
+export function Modal({ isOpen, onClose, children, title, size = "md" }: ModalProps) {
+  // Body scroll lock
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
     }
-    return () => { document.body.style.overflow = "auto"; };
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [isOpen]);
+
+  // Escape key handler
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
+  const sizeClass = {
+    sm: styles.modalSm,
+    md: styles.modalMd,
+    lg: styles.modalLg,
+    xl: styles.modalXl,
+    full: styles.modalFull,
+  }[size];
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div style={{
-          position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          zIndex: 50,
-        }}>
+        <motion.div
+          className={styles.modalOverlay}
+          variants={fadeIn}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          onClick={onClose}
+        >
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            style={{
-              position: "absolute", top: 0, left: 0, width: "100%", height: "100%",
-              background: "rgba(0, 0, 0, 0.6)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)"
-            }}
-          />
-          <motion.div
-            className="glass-panel"
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={springPhysics}
-            style={{
-              position: "relative", zIndex: 51, padding: "2rem",
-              width: "90%", maxWidth: "500px",
-            }}
+            className={`${styles.modalContent} ${sizeClass}`}
+            variants={scaleIn}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            onClick={(e) => e.stopPropagation()}
           >
-            {children}
+            {title && (
+              <div className={styles.modalHeader}>
+                <h3 className={styles.modalTitle}>{title}</h3>
+                <button className={styles.modalClose} onClick={onClose} aria-label="Close">
+                  <X size={18} />
+                </button>
+              </div>
+            )}
+            <div className={styles.modalBody}>
+              {children}
+            </div>
           </motion.div>
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );

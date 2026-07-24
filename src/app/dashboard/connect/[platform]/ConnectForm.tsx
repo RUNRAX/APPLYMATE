@@ -82,7 +82,7 @@ export default function ConnectForm({ platformName, platformId }: { platformName
             />
           </div>
 
-          <div style={{ padding: '1rem', background: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '8px', fontSize: '0.8rem', color: 'rgba(255,255,255,0.8)', marginBottom: '0.5rem' }}>
+          <div style={{ padding: '1rem', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '8px', fontSize: '0.85rem', color: '#1E3A8A', marginBottom: '0.5rem' }}>
             <strong>Security Notice:</strong> Credentials are encrypted at rest using AES-256 and only decrypted inside the isolated Playwright worker during an active job application.
           </div>
 
@@ -96,8 +96,8 @@ export default function ConnectForm({ platformName, platformId }: { platformName
         </>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '0.5rem' }}>
-          <div style={{ padding: '1.25rem', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: '8px', fontSize: '0.85rem', color: 'rgba(255,255,255,0.9)', lineHeight: 1.5 }}>
-            <strong style={{ color: '#ef4444', display: 'block', marginBottom: '0.5rem', fontSize: '0.95rem' }}>Agent Setup Required</strong>
+          <div style={{ padding: '1.25rem', backgroundColor: '#FEF2F2', border: '1px solid #FCA5A5', borderRadius: '8px', fontSize: '0.85rem', color: '#991B1B', lineHeight: 1.5 }}>
+            <strong style={{ color: '#DC2626', display: 'block', marginBottom: '0.5rem', fontSize: '0.95rem' }}>Agent Setup Required</strong>
             Because you use Google/Apple/GitHub to log in, Google's strict anti-bot security will block our background agent. <br/><br/>
             To allow the agent to apply for you, you <strong>must set a direct {platformName} password</strong>. Once set, you can switch back to the "Email & Password" tab to connect.
           </div>

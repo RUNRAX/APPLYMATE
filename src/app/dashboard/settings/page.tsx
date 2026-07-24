@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { Card } from "@/components/ui/Card";
 import { AutoApplyToggle } from "./AutoApplyToggle";
 import styles from "../dashboard.module.css";
 import Link from "next/link";
@@ -31,29 +31,25 @@ export default async function SettingsPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       <div>
-        <h1 className="font-display" style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>Settings</h1>
+        <h1 className="font-display" style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '0.5rem', letterSpacing: '-0.02em', color: 'var(--foreground)' }}>Settings</h1>
         <p style={{ color: 'var(--muted-foreground)' }}>Manage your account, billing, and API integrations.</p>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '800px' }}>
         
         {/* Profile Section */}
-        <GlassCard variant="strong">
-          <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1.5rem' }}>Account Profile</h3>
+        <Card style={{ padding: '1.5rem', background: 'var(--background)', border: '1px solid var(--border)' }}>
+          <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1.5rem', color: 'var(--foreground)' }}>Account Profile</h3>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
             <Input label="Full Name" defaultValue={session.user.name || ""} disabled />
             <Input label="Email Address" defaultValue={session.user.email || ""} disabled />
           </div>
-          <Button variant="glass" style={{ fontSize: '0.9rem' }}>Edit Profile</Button>
-        </GlassCard>
-
-
-
-
+          <Button variant="secondary" style={{ fontSize: '0.9rem' }}>Edit Profile</Button>
+        </Card>
 
         {/* AI Integration Section */}
-        <GlassCard variant="strong">
-          <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '0.5rem' }}>AI Integration</h3>
+        <Card style={{ padding: '1.5rem', background: 'var(--background)', border: '1px solid var(--border)' }}>
+          <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '0.5rem', color: 'var(--foreground)' }}>AI Integration</h3>
           <p style={{ fontSize: '0.9rem', color: 'var(--muted-foreground)', marginBottom: '1.5rem' }}>
             ApplyMate uses Groq to tailor your resume and answer complex application questions at lightning speed.
           </p>
@@ -69,28 +65,28 @@ export default async function SettingsPage() {
             </div>
             <Button variant="primary">Update Key</Button>
           </div>
-          <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', marginTop: '0.5rem' }}>
+          <p style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)', marginTop: '0.5rem' }}>
             Keys are encrypted at rest using AES-256.
           </p>
-        </GlassCard>
+        </Card>
 
         {/* Automation Section */}
-        <GlassCard variant="strong">
-          <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '0.5rem' }}>Agent Application Pipeline</h3>
+        <Card style={{ padding: '1.5rem', background: 'var(--background)', border: '1px solid var(--border)' }}>
+          <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '0.5rem', color: 'var(--foreground)' }}>Agent Application Pipeline</h3>
           <p style={{ fontSize: '0.9rem', color: 'var(--muted-foreground)', marginBottom: '1.5rem' }}>
             Choose whether the AI agent applies automatically on your behalf or generates a resume and waits for your manual verification.
           </p>
           <AutoApplyToggle initialValue={isAutoApply} />
-        </GlassCard>
+        </Card>
 
         {/* Danger Zone */}
-        <GlassCard variant="strong" style={{ border: '1px solid rgba(239, 68, 68, 0.3)', background: 'rgba(239, 68, 68, 0.05)' }}>
-          <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, color: '#f87171', marginBottom: '0.5rem' }}>Danger Zone</h3>
+        <Card style={{ padding: '1.5rem', border: '1px solid var(--error, #fca5a5)', backgroundColor: '#FEF2F2' }}>
+          <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--error, #DC2626)', marginBottom: '0.5rem' }}>Danger Zone</h3>
           <p style={{ fontSize: '0.9rem', color: 'var(--muted-foreground)', marginBottom: '1.5rem' }}>
             Once you delete your account, there is no going back. Please be certain.
           </p>
-          <Button variant="danger" style={{ fontSize: '0.9rem' }}>Delete Account</Button>
-        </GlassCard>
+          <Button variant="danger" style={{ fontSize: '0.9rem', backgroundColor: '#DC2626', color: 'white' }}>Delete Account</Button>
+        </Card>
 
       </div>
     </div>

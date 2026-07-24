@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 
-const smoothSpring = { type: "spring" as const, stiffness: 400, damping: 30, mass: 0.8 };
+import React, { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
+import { slideUp } from "@/lib/animations";
+import styles from "./components.module.css";
 
 interface StatCardProps {
   label: string;
@@ -13,82 +14,65 @@ interface StatCardProps {
 }
 
 export function StatCard({ label, value, trend, trendValue, icon }: StatCardProps) {
-  const [displayValue, setDisplayValue] = useState(0);
-  const isNumber = typeof value === "number";
-  const numValue = isNumber ? (value as number) : parseFloat((value as string).replace(/[^0-9.-]+/g,""));
-  const isPercent = typeof value === "string" && value.includes("%");
+  const [displayValue, setDisplayValue] = useState("0");
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (!isNumber && isNaN(numValue)) return;
-    
-    let startTimestamp: number | null = null;
-    const duration = 1500;
-    
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      setDisplayValue(Math.floor(easeOut * numValue));
-      
+    if (hasAnimated.current) return;
+    hasAnimated.current = true;
+
+    const numericValue = typeof value === "string" ? parseFloat(value.replace(/[^0-9.]/g, "")) : value;
+    const isPercentage = typeof value === "string" && value.includes("%");
+    const suffix = isPercentage ? "%" : "";
+
+    if (isNaN(numericValue)) {
+      setDisplayValue(String(value));
+      return;
+    }
+
+    const duration = 1200;
+    const startTime = performance.now();
+
+    function tick(currentTime: number) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(numericValue * eased);
+      setDisplayValue(current + suffix);
+
       if (progress < 1) {
-        window.requestAnimationFrame(step);
+        requestAnimationFrame(tick);
       } else {
-        setDisplayValue(numValue);
+        setDisplayValue(Math.round(numericValue) + suffix);
       }
-    };
-    
-    window.requestAnimationFrame(step);
-  }, [numValue, isNumber]);
+    }
+
+    requestAnimationFrame(tick);
+  }, [value]);
+
+  const trendIcon = trend === "up" ? "↑" : trend === "down" ? "↓" : "—";
+  const trendClass = trend === "up" ? styles.statCardTrendUp : trend === "down" ? styles.statCardTrendDown : styles.statCardTrendNeutral;
 
   return (
     <motion.div
-      transition={smoothSpring}
-      whileHover={{ y: -3, scale: 1.01 }}
-      className="glass"
-      style={{
-        padding: "1.5rem",
-        position: "relative",
-        overflow: "hidden",
-        background: "linear-gradient(135deg, rgba(80, 140, 255, 0.10), rgba(80, 140, 255, 0.04))",
-        filter: "saturate(1.2)",
-      }}
+      className={styles.statCard}
+      variants={slideUp}
+      initial="hidden"
+      animate="visible"
+      whileHover={{ y: -2, transition: { duration: 0.2 } }}
     >
-      {/* Accent glow on top edge */}
-      <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: "1px", background: "linear-gradient(90deg, transparent, hsla(210, 100%, 75%, 0.8), hsla(350, 96%, 60%, 0.5), transparent)" }} />
-      
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1rem" }}>
-        <div style={{ fontSize: "0.9rem", color: "rgba(255, 255, 255, 0.6)", fontWeight: 500 }}>
-          {label}
-        </div>
-        {icon && (
-          <div style={{ color: "var(--primary)", opacity: 0.8 }}>
-            {icon}
-          </div>
-        )}
+      <div className={styles.statCardAccent} />
+      <div className={styles.statCardHeader}>
+        <span className={styles.statCardLabel}>{label}</span>
+        {icon && <div className={styles.statCardIcon}>{icon}</div>}
       </div>
-
-      <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem" }}>
-        <div style={{ fontSize: "2.5rem", fontWeight: 700, letterSpacing: "-0.02em" }}>
-          {!isNumber && isNaN(numValue) ? value : displayValue}
-          {isPercent && "%"}
+      <div className={styles.statCardValue}>{displayValue}</div>
+      {trend && trendValue && (
+        <div className={`${styles.statCardTrend} ${trendClass}`}>
+          <span>{trendIcon}</span>
+          <span>{trendValue}</span>
         </div>
-        
-        {trend && (
-          <div style={{ 
-            fontSize: "0.85rem", 
-            fontWeight: 500,
-            display: "flex", 
-            alignItems: "center", 
-            gap: "0.25rem",
-            color: trend === "up" ? "#34d399" : trend === "down" ? "#f87171" : "rgba(255,255,255,0.5)"
-          }}>
-            {trend === "up" && "↑"}
-            {trend === "down" && "↓"}
-            {trend === "neutral" && "—"}
-            {trendValue && <span>{trendValue}</span>}
-          </div>
-        )}
-      </div>
+      )}
     </motion.div>
   );
 }

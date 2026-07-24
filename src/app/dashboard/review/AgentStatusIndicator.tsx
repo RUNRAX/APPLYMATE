@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getAgentStatus } from "@/app/actions/agent";
 import { Bot, RefreshCcw, Search, Zap, UserX, AlertCircle, Moon, PauseCircle, Loader } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 
 export function AgentStatusIndicator() {
   const [status, setStatus] = useState<any>(null);
@@ -35,70 +36,66 @@ export function AgentStatusIndicator() {
   const s = status.status?.toUpperCase() || "IDLE";
   
   if (s === "IDLE") {
-    color = "var(--muted-foreground)";
-  } else if (s === "PENDING") {
-    icon = <Loader size={18} className="animate-spin" />;
-    color = "#06b6d4"; // cyan
-    isPulsing = true;
-  } else if (s === "INITIALIZING" || s === "AUTHENTICATING") {
-    icon = <RefreshCcw size={18} className="animate-spin" />;
-    color = "#3b82f6"; // blue
+    color = "#6B7280"; // gray
+  } else if (s === "PENDING" || s === "INITIALIZING" || s === "AUTHENTICATING") {
+    icon = s === "PENDING" ? <Loader size={18} className="animate-spin" /> : <RefreshCcw size={18} className="animate-spin" />;
+    color = "#4F46E5"; // indigo
     isPulsing = true;
   } else if (s === "SEARCHING") {
     icon = <Search size={18} />;
-    color = "#8b5cf6"; // purple
+    color = "#2563EB"; // blue
     isPulsing = true;
   } else if (s === "ACTIVE") {
     icon = <Zap size={18} />;
-    color = "#22c55e"; // green
+    color = "#059669"; // green
     isPulsing = true;
   } else if (s === "EXTRACTING") {
     icon = <Zap size={18} />;
-    color = "#eab308"; // yellow
+    color = "#7C3AED"; // purple
     isPulsing = true;
-  } else if (s.includes("WAITING")) {
-    icon = <UserX size={18} />;
-    color = "#f97316"; // orange
-    isPulsing = true;
-  } else if (s === "SLEEPING") {
-    icon = <Moon size={18} />;
-    color = "#818cf8"; // indigo
+  } else if (s.includes("WAITING") || s === "SLEEPING") {
+    icon = s === "SLEEPING" ? <Moon size={18} /> : <UserX size={18} />;
+    color = "#D97706"; // amber
+    isPulsing = s.includes("WAITING");
   } else if (s === "PAUSED") {
     icon = <PauseCircle size={18} />;
-    color = "#6b7280"; // gray
+    color = "#9CA3AF"; // gray
   } else if (s === "ERROR") {
     icon = <AlertCircle size={18} />;
-    color = "#ef4444"; // red
+    color = "#DC2626"; // red
   } else {
     isPulsing = true;
   }
 
   return (
     <div style={{
-      background: `color-mix(in srgb, ${color} 10%, transparent)`,
-      border: `1px solid color-mix(in srgb, ${color} 20%, transparent)`,
+      background: 'var(--background)',
+      border: '1px solid var(--border)',
+      borderLeft: `4px solid ${color}`,
       borderRadius: '12px',
       padding: '1rem 1.5rem',
       display: 'flex',
       alignItems: 'center',
       gap: '1rem',
-      marginBottom: '1rem'
+      marginBottom: '1rem',
+      boxShadow: 'var(--shadow-sm)'
     }}>
-      <div style={{ 
-        color, 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center',
-        background: `color-mix(in srgb, ${color} 20%, transparent)`,
-        padding: '0.5rem',
-        borderRadius: '50%',
-        animation: isPulsing ? 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' : 'none'
-      }}>
+      <div 
+        className={isPulsing ? "animate-pulse" : ""}
+        style={{ 
+          color, 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          background: `color-mix(in srgb, ${color} 15%, transparent)`,
+          padding: '0.5rem',
+          borderRadius: '50%',
+        }}>
         {icon}
       </div>
       
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-        <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: 'rgba(255,255,255,0.9)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--foreground)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           Discovery Agent: <span style={{ color }}>{status.status}</span>
         </h4>
         <p style={{ fontSize: '0.85rem', color: 'var(--muted-foreground)' }}>
@@ -107,9 +104,8 @@ export function AgentStatusIndicator() {
       </div>
 
       <div style={{ display: 'flex', gap: '0.5rem', position: 'relative' }}>
-        <button 
-          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
-          onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+        <Button 
+          variant={s === "PAUSED" ? "primary" : "secondary"}
           onClick={async () => {
             const { stopAgent, startAgent } = await import("@/app/actions/agent");
             if (s === "PAUSED") {
@@ -122,58 +118,35 @@ export function AgentStatusIndicator() {
               showToast("Agent stopped and paused.");
             }
           }}
-          style={{
-            padding: '0.5rem 1rem',
-            background: 'rgba(255,255,255,0.05)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: '6px',
-            color: 'white',
-            cursor: 'pointer',
-            fontSize: '0.8rem',
-            fontWeight: 500,
-            transition: 'all 0.2s ease',
-            position: 'relative',
-            overflow: 'hidden'
-          }}
+          style={{ padding: '0.5rem 1rem', fontSize: '0.8rem' }}
         >
           {s === "PAUSED" ? "Start Agent" : "Stop Agent"}
-        </button>
-        <button 
-          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
-          onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+        </Button>
+        <Button 
+          variant="secondary"
           onClick={() => {
             getAgentStatus().then(setStatus);
             showToast("Agent status refreshed!");
           }}
-          style={{
-            padding: '0.5rem',
-            background: 'rgba(255,255,255,0.05)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: '6px',
-            color: 'white',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'all 0.2s ease',
-          }}
+          style={{ padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
           <RefreshCcw size={16} />
-        </button>
+        </Button>
 
         {toastMessage && (
           <div style={{
             position: 'absolute',
             bottom: '-40px',
             right: 0,
-            background: '#10b981',
-            color: 'white',
+            background: 'var(--background)',
+            border: '1px solid var(--success)',
+            color: 'var(--success)',
             padding: '0.4rem 0.8rem',
             borderRadius: '6px',
             fontSize: '0.75rem',
             fontWeight: 600,
             whiteSpace: 'nowrap',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+            boxShadow: 'var(--shadow-md)',
             animation: 'fadeInOut 2s forwards'
           }}>
             {toastMessage}
@@ -182,10 +155,6 @@ export function AgentStatusIndicator() {
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: .5; }
-        }
         @keyframes fadeInOut {
           0% { opacity: 0; transform: translateY(-5px); }
           15% { opacity: 1; transform: translateY(0); }
