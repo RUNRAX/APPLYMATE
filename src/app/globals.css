@@ -78,15 +78,15 @@
 }
 
 [data-theme='dark'] {
-  --background: #09090b;
-  --background-secondary: #18181b;
-  --background-tertiary: #27272a;
-  --foreground: #fafafa;
+  --background: #000000;
+  --background-secondary: #0a0a0a;
+  --background-tertiary: #171717;
+  --foreground: #ffffff;
 
-  --card: #18181b;
-  --card-foreground: #fafafa;
-  --popover: #18181b;
-  --popover-foreground: #fafafa;
+  --card: #0a0a0a;
+  --card-foreground: #ffffff;
+  --popover: #0a0a0a;
+  --popover-foreground: #ffffff;
 
   --primary: #6366f1;
   --primary-foreground: #ffffff;
@@ -140,9 +140,10 @@ html, body {
   padding: 0;
   font-family: var(--font-sans);
   font-feature-settings: "ss01", "ss02", "cv11";
-  letter-spacing: -0.011em;
+  letter-spacing: -0.015em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   line-height: 1.6;
 }
 

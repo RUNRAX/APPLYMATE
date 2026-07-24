@@ -18,10 +18,13 @@ export function Modal({ isOpen, onClose, children, title, size = "md" }: ModalPr
   // Body scroll lock
   useEffect(() => {
     if (isOpen) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
     return () => {
       document.body.style.overflow = "auto";
+      document.body.style.paddingRight = "0px";
     };
   }, [isOpen]);
 

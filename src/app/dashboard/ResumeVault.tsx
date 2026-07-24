@@ -62,7 +62,7 @@ export default function ResumeVault({ initialResume, isOpen, onClose }: ResumeVa
     <Modal isOpen={isOpen} onClose={onClose} title="Resume Vault" size="lg">
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         {/* Upload Section */}
-        <Card variant="elevated" style={{ padding: '2rem', background: '#FFFFFF' }}>
+        <Card variant="elevated" style={{ padding: '2rem', background: 'var(--card)' }}>
           <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--foreground)', marginBottom: '1.5rem' }}>
             Upload Base Resume
           </h2>
@@ -78,8 +78,8 @@ export default function ResumeVault({ initialResume, isOpen, onClose }: ResumeVa
                 style={{
                   width: '100%', 
                   padding: '0.75rem', 
-                  background: '#F9FAFB', 
-                  border: '1px dashed #D1D5DB', 
+                  background: 'var(--background-secondary)', 
+                  border: '1px dashed var(--border-strong)', 
                   borderRadius: '8px', 
                   color: 'var(--muted-foreground)'
                 }}
@@ -99,7 +99,7 @@ export default function ResumeVault({ initialResume, isOpen, onClose }: ResumeVa
 
         {/* Current Active Resume Text */}
         {resumeText && (
-          <Card variant="elevated" style={{ padding: '2rem', background: '#FFFFFF' }}>
+          <Card variant="elevated" style={{ padding: '2rem', background: 'var(--card)' }}>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--foreground)', marginBottom: '1rem' }}>
               Current Active Base Resume
             </h2>
@@ -107,7 +107,7 @@ export default function ResumeVault({ initialResume, isOpen, onClose }: ResumeVa
               This is the raw text the AI extracted from your PDF and will use for job applications.
             </p>
             <div style={{ 
-              background: '#F9FAFB', 
+              background: 'var(--background-secondary)', 
               padding: '1.5rem', 
               borderRadius: '8px', 
               fontFamily: 'var(--font-mono), monospace', 
@@ -116,7 +116,7 @@ export default function ResumeVault({ initialResume, isOpen, onClose }: ResumeVa
               whiteSpace: 'pre-wrap',
               maxHeight: '400px',
               overflowY: 'auto',
-              border: '1px solid #E5E7EB'
+              border: '1px solid var(--border)'
             }}>
               {resumeText}
             </div>
