@@ -428,6 +428,126 @@
   background-color: #F9FAFB;
 }
 
+/* ─── Bento Grid Cards ─── */
+.activityCard, .liveFeedCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 250px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0 0 0.25rem 0;
+}
+
+.cardSubtitle {
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+}
+
+.activityContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+}
+
+.liveIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(239, 68, 68, 0.1);
+  border-radius: 999px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  background-color: #EF4444;
+  border-radius: 50%;
+  box-shadow: 0 0 0 rgba(239, 68, 68, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.liveText {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #EF4444;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.feedContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+  max-height: 300px;
+  padding-right: 0.5rem;
+}
+
+.emptyFeed {
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+  font-style: italic;
+  padding: 1rem 0;
+}
+
+.feedItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.feedItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.feedItemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.feedTimestamp {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+
+.feedItemTitle {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--foreground);
+}
+
+.feedItemCompany {
+  font-size: 0.85rem;
+  color: var(--primary);
+}
+
 .mobileMenuBtn {
   display: none;
   align-items: center;
