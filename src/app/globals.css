@@ -101,7 +101,7 @@
   --background-tertiary: #171717;
   --foreground: #ffffff;
 
-  --card: rgba(20, 20, 20, 0.4);
+  --card: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
   --card-foreground: #ffffff;
   --popover: rgba(20, 20, 20, 0.6);
   --popover-foreground: #ffffff;
