@@ -108,7 +108,7 @@
 /* ─── Card ─── */
 .card {
   background: var(--card);
-  border: 1px solid var(--border);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
   padding: 1.5rem;
@@ -116,7 +116,7 @@
 
 .cardElevated {
   background: var(--card);
-  border: 1px solid var(--border);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-md);
   padding: 1.5rem;
@@ -131,7 +131,7 @@
 
 .cardInteractive {
   background: var(--card);
-  border: 1px solid var(--border);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
   padding: 1.5rem;

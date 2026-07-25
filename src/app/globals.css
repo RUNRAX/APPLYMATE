@@ -6,9 +6,9 @@
   --foreground: #111827;
 
   /* Card / popover */
-  --card: #FFFFFF;
+  --card: rgba(255, 255, 255, 0.4);
   --card-foreground: #111827;
-  --popover: #FFFFFF;
+  --popover: rgba(255, 255, 255, 0.6);
   --popover-foreground: #111827;
 
   /* Primary = Indigo */
@@ -96,9 +96,9 @@
   --background-tertiary: #171717;
   --foreground: #ffffff;
 
-  --card: #0a0a0a;
+  --card: rgba(20, 20, 20, 0.4);
   --card-foreground: #ffffff;
-  --popover: #0a0a0a;
+  --popover: rgba(20, 20, 20, 0.6);
   --popover-foreground: #ffffff;
 
   --primary: #6366f1;
