@@ -16,16 +16,13 @@ export default function DashboardLoading() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
       style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        minHeight: 'calc(100vh - 12rem)',
+        width: '100%',
         backgroundColor: 'transparent',
-        zIndex: 50
       }}
     >
       <GlassLoader />
