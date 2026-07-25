@@ -49,7 +49,7 @@ export default function OnboardingWizard() {
         ))}
       </div>
 
-      <Card style={{ width: '100%', maxWidth: '600px', minHeight: '400px', position: 'relative', overflow: 'hidden', backgroundColor: 'var(--background)', border: '1px solid var(--border)' }}>
+      <Card style={{ width: '100%', maxWidth: '600px', minHeight: '400px', position: 'relative', overflow: 'hidden' }}>
         <form action={submitOnboarding} style={{ height: '100%' }}>
           <AnimatePresence mode="wait">
             {step === 1 && (

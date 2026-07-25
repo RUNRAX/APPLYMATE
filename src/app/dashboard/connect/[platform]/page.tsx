@@ -29,7 +29,7 @@ export default async function ConnectPlatformPage({ params }: Props) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
-      <Card style={{ width: '100%', maxWidth: '450px', padding: '3rem 2rem', backgroundColor: 'var(--background)', border: '1px solid var(--border)' }}>
+      <Card style={{ width: '100%', maxWidth: '450px', padding: '3rem 2rem' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <h1 className="font-display" style={{ fontSize: '1.8rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--foreground)' }}>
             {existingCredential ? `✓ ${platformName} Connected` : `Connect ${platformName}`}

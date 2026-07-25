@@ -67,7 +67,7 @@ export default function PreferencesForm({ preference }: { preference: any }) {
             defaultValue={preference?.datePosted || ""}
             style={{ 
               width: '100%', padding: '0.75rem', borderRadius: '8px', 
-              backgroundColor: 'var(--background)', border: '1px solid var(--border)', 
+              backgroundColor: 'var(--background-secondary)', border: '1px solid var(--border)', 
               color: 'var(--foreground)', outline: 'none' 
             }}
           >
