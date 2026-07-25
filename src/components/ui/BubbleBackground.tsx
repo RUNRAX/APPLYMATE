@@ -12,15 +12,12 @@ export function BubbleBackground() {
 
   if (!mounted) return null;
 
-  // The user specifically requested this dark aesthetic
-  if (resolvedTheme !== "dark") return null;
-
   return (
-    <div style={{
+    <div className="bubble-bg-container" style={{
       position: "fixed",
       inset: 0,
-      zIndex: -1,
-      backgroundColor: "#000000",
+      zIndex: 0, // Put at 0, and make main zIndex 1
+      backgroundColor: "transparent", // Don't use black, let body be black, bubbles float on top
       overflow: "hidden",
       pointerEvents: "none"
     }}>

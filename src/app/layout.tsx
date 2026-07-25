@@ -38,7 +38,7 @@ export default function RootLayout({
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
           <SessionProvider>
             <BubbleBackground />
-            <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+            <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 1 }}>
               {children}
             </main>
           </SessionProvider>

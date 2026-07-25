@@ -9,6 +9,7 @@ import rehypeRaw from "rehype-raw";
 import { FileText, Download, Target, Wand2, ArrowRight, MessageSquare, Loader2, Trash2 } from "lucide-react";
 import { calculateAtsScore } from "@/features/resume/actions";
 import styles from "../dashboard.module.css";
+import { GlassLoader } from "@/components/ui/GlassLoader";
 
 export default function ResumeBuilderPage() {
   const [jobDescription, setJobDescription] = useState("");
@@ -437,8 +438,7 @@ export default function ResumeBuilderPage() {
 
           {loading && (
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', gap: '1rem' }}>
-              <div className={styles.agentDotPing} style={{ position: 'relative', width: '2rem', height: '2rem' }} />
-              <p className="animate-pulse">Groq AI is optimizing keywords and formatting...</p>
+              <GlassLoader />
             </div>
           )}
 
