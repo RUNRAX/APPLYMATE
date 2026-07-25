@@ -38,7 +38,7 @@ export default async function SettingsPage() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '800px' }}>
         
         {/* Profile Section */}
-        <Card style={{ padding: '1.5rem', background: 'var(--background)', border: '1px solid var(--border)' }}>
+        <Card style={{ padding: '1.5rem', background: 'rgba(88, 28, 135, 0.15)', border: '1px solid var(--glass-border)' }}>
           <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1.5rem', color: 'var(--foreground)' }}>Account Profile</h3>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
             <Input label="Full Name" defaultValue={session.user.name || ""} disabled />
@@ -48,7 +48,7 @@ export default async function SettingsPage() {
         </Card>
 
         {/* AI Integration Section */}
-        <Card style={{ padding: '1.5rem', background: 'var(--background)', border: '1px solid var(--border)' }}>
+        <Card style={{ padding: '1.5rem', background: 'rgba(88, 28, 135, 0.15)', border: '1px solid var(--glass-border)' }}>
           <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '0.5rem', color: 'var(--foreground)' }}>AI Integration</h3>
           <p style={{ fontSize: '0.9rem', color: 'var(--muted-foreground)', marginBottom: '1.5rem' }}>
             ApplyMate uses Groq to tailor your resume and answer complex application questions at lightning speed.
@@ -71,7 +71,7 @@ export default async function SettingsPage() {
         </Card>
 
         {/* Automation Section */}
-        <Card style={{ padding: '1.5rem', background: 'var(--background)', border: '1px solid var(--border)' }}>
+        <Card style={{ padding: '1.5rem', background: 'rgba(88, 28, 135, 0.15)', border: '1px solid var(--glass-border)' }}>
           <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '0.5rem', color: 'var(--foreground)' }}>Agent Application Pipeline</h3>
           <p style={{ fontSize: '0.9rem', color: 'var(--muted-foreground)', marginBottom: '1.5rem' }}>
             Choose whether the AI agent applies automatically on your behalf or generates a resume and waits for your manual verification.
