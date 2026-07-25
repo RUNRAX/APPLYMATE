@@ -37,9 +37,9 @@ export function BubbleBackground() {
           minWidth: "800px",
           minHeight: "800px",
           borderRadius: "50%",
-          background: "radial-gradient(circle at 50% 50%, #0a0a0a 0%, #000000 80%)",
-          boxShadow: "inset -10px -10px 30px rgba(255, 255, 255, 0.25), inset -2px -2px 10px rgba(255, 255, 255, 0.6)",
-          border: "1px solid rgba(255, 255, 255, 0.02)"
+          background: "var(--bubble-bg-1)",
+          boxShadow: "var(--bubble-shadow-1)",
+          border: "1px solid var(--bubble-border-color)"
         }}
       />
       
@@ -59,9 +59,9 @@ export function BubbleBackground() {
           minWidth: "900px",
           minHeight: "900px",
           borderRadius: "50%",
-          background: "radial-gradient(circle at 50% 50%, #0a0a0a 0%, #000000 80%)",
-          boxShadow: "inset 12px 12px 40px rgba(255, 255, 255, 0.2), inset 2px 2px 12px rgba(255, 255, 255, 0.7)",
-          border: "1px solid rgba(255, 255, 255, 0.02)"
+          background: "var(--bubble-bg-2)",
+          boxShadow: "var(--bubble-shadow-2)",
+          border: "1px solid var(--bubble-border-color)"
         }}
       />
 
@@ -81,9 +81,9 @@ export function BubbleBackground() {
           minWidth: "500px",
           minHeight: "500px",
           borderRadius: "50%",
-          background: "radial-gradient(circle at 50% 50%, #0f0f0f 0%, #000000 80%)",
-          boxShadow: "inset -8px 12px 35px rgba(255, 255, 255, 0.3), inset -1px 2px 10px rgba(255, 255, 255, 0.8)",
-          border: "1px solid rgba(255, 255, 255, 0.02)"
+          background: "var(--bubble-bg-3)",
+          boxShadow: "var(--bubble-shadow-3)",
+          border: "1px solid var(--bubble-border-color)"
         }}
       />
     </div>
