@@ -25,6 +25,7 @@ export const metadata: Metadata = {
 };
 
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { BubbleBackground } from "@/components/ui/BubbleBackground";
 
 export default function RootLayout({
   children,
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${outfit.variable} ${jetbrainsMono.variable}`}>
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
           <SessionProvider>
+            <BubbleBackground />
             <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
               {children}
             </main>

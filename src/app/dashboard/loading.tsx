@@ -37,12 +37,12 @@ export default function DashboardLoading() {
           flexDirection: 'row',
           alignItems: 'center',
           gap: '1rem',
-          padding: '1rem 2rem',
-          borderRadius: '9999px', // Pill shape
-          background: 'rgba(255, 255, 255, 0.15)', // Extremely subtle white tint
-          backdropFilter: 'blur(24px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-          boxShadow: '0 10px 30px -10px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.2), inset 0 2px 4px rgba(255,255,255,0.1)',
+          padding: '0.8rem 1.5rem',
+          borderRadius: '9999px',
+          background: 'rgba(30, 30, 30, 0.6)', // Transparent dark grey
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 10px 30px -10px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.08)',
           overflow: 'hidden'
         }}
       >

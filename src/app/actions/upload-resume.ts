@@ -1,7 +1,7 @@
 "use server";
 import prisma from "@/lib/prisma";
 import { auth } from "@/features/auth/auth";
-import pdfParse from "pdf-parse";
+
 
 export async function uploadResumeAction(formData: FormData) {
   const session = await auth();
@@ -16,6 +16,7 @@ export async function uploadResumeAction(formData: FormData) {
   const buffer = Buffer.from(arrayBuffer);
   let resumeText = "";
   try {
+    const pdfParse = (await import("pdf-parse")).default;
     const data = await pdfParse(buffer);
     resumeText = data.text;
   } catch (error) {
