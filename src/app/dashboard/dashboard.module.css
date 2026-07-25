@@ -56,8 +56,8 @@
 }
 
 .collapseBtn:hover {
-  background-color: #F3F4F6;
-  color: #111827;
+  background-color: var(--background-secondary);
+  color: var(--foreground);
 }
 
 .sidebarNav {
@@ -84,13 +84,13 @@
 }
 
 .navLink:hover {
-  background-color: #F3F4F6;
-  color: #111827;
+  background-color: var(--background-secondary);
+  color: var(--foreground);
 }
 
 .navLink.active {
-  color: #4F46E5;
-  background-color: #EEF2FF;
+  color: var(--primary);
+  background-color: var(--background-secondary);
   position: relative;
 }
 
@@ -143,7 +143,7 @@
 .userName {
   font-size: 0.85rem;
   font-weight: 500;
-  color: #111827;
+  color: var(--foreground);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -213,7 +213,7 @@
 .headerTitle {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--foreground);
 }
 
 .headerActions {
@@ -240,11 +240,11 @@
 .searchInput {
   width: 220px;
   padding: 0.45rem 0.75rem 0.45rem 2.25rem;
-  background-color: #F3F4F6;
+  background-color: var(--background-secondary);
   border: 1px solid transparent;
   border-radius: 8px;
   font-size: 0.8rem;
-  color: #111827;
+  color: var(--foreground);
   transition: all 0.2s ease;
 }
 
@@ -367,7 +367,7 @@
   font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--foreground);
   margin-bottom: 0.5rem;
 }
 

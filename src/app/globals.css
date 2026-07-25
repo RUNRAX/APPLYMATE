@@ -149,15 +149,15 @@
   --glass-bg: linear-gradient(135deg, rgba(30, 30, 30, 0.6) 0%, rgba(10, 10, 10, 0.2) 100%);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: 
-    0 30px 60px -10px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
-    inset 0 20px 40px -10px rgba(255, 255, 255, 0.08),
-    inset 0 -20px 40px -10px rgba(0, 0, 0, 0.3);
+    0 30px 60px -10px rgba(0, 0, 0, 0.9),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1.5px 0 rgba(0, 0, 0, 0.8),
+    inset 0 20px 40px -10px rgba(255, 255, 255, 0.15),
+    inset 0 -20px 40px -10px rgba(0, 0, 0, 0.6);
 
-  --bubble-bg-1: radial-gradient(circle at 50% 50%, #0a0a0a 0%, #000000 80%);
-  --bubble-bg-2: radial-gradient(circle at 50% 50%, #0a0a0a 0%, #000000 80%);
-  --bubble-bg-3: radial-gradient(circle at 50% 50%, #0f0f0f 0%, #000000 80%);
+  --bubble-bg-1: radial-gradient(circle at 50% 50%, #2e2a4a 0%, #151025 80%);
+  --bubble-bg-2: radial-gradient(circle at 50% 50%, #1c2742 0%, #0d121c 80%);
+  --bubble-bg-3: radial-gradient(circle at 50% 50%, #301f35 0%, #1a0e1e 80%);
   
   --bubble-shadow-1: inset -10px -10px 30px rgba(255, 255, 255, 0.25), inset -2px -2px 10px rgba(255, 255, 255, 0.6);
   --bubble-shadow-2: inset 12px 12px 40px rgba(255, 255, 255, 0.2), inset 2px 2px 12px rgba(255, 255, 255, 0.7);
