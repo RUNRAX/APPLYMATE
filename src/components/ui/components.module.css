@@ -108,18 +108,24 @@
 /* ─── Card ─── */
 .card {
   background: var(--card);
+  backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   box-shadow: var(--glass-shadow);
   padding: 1.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .cardElevated {
   background: var(--card);
+  backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   box-shadow: var(--glass-shadow);
   padding: 1.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .cardOutlined {
@@ -131,10 +137,13 @@
 
 .cardInteractive {
   background: var(--card);
+  backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   box-shadow: var(--glass-shadow);
   padding: 1.5rem;
+  padding-bottom: 2.5rem;
   cursor: pointer;
   transition: all var(--transition-base);
 }
@@ -381,10 +390,13 @@
 /* ─── StatCard ─── */
 .statCard {
   background: var(--card);
+  backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   box-shadow: var(--glass-shadow);
   padding: 1.25rem 1.5rem;
+  padding-bottom: 2.25rem;
   position: relative;
   overflow: hidden;
 }
