@@ -110,7 +110,7 @@
   background: var(--card);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--glass-shadow);
   padding: 1.5rem;
 }
 
@@ -118,7 +118,7 @@
   background: var(--card);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--glass-shadow);
   padding: 1.5rem;
 }
 
@@ -133,7 +133,7 @@
   background: var(--card);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--glass-shadow);
   padding: 1.5rem;
   cursor: pointer;
   transition: all var(--transition-base);
@@ -381,9 +381,9 @@
 /* ─── StatCard ─── */
 .statCard {
   background: var(--card);
-  border: 1px solid var(--border);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--glass-shadow);
   padding: 1.25rem 1.5rem;
   position: relative;
   overflow: hidden;
