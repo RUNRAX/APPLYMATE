@@ -36,19 +36,19 @@ export default async function InsightsPage() {
       </div>
 
       <div className={styles.bentoGrid}>
-        <Card style={{ padding: '1.5rem', background: 'var(--background)', border: '1px solid var(--border)' }}>
+        <Card style={{ padding: '1.5rem', paddingBottom: '2.5rem' }}>
           <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '2rem', color: 'var(--foreground)' }}>Applications by Platform</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             {['LinkedIn', 'Indeed', 'Wellfound'].map((platform, i) => {
               const platformApps = apps.filter(a => a.jobListing.platform === platform).length;
               const percent = apps.length > 0 ? Math.round((platformApps / apps.length) * 100) : 0;
               return (
                 <div key={platform}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem', fontSize: '0.9rem' }}>
                     <span style={{ color: 'var(--foreground)', fontWeight: 500 }}>{platform}</span>
                     <span style={{ color: 'var(--muted-foreground)' }}>{platformApps} ({percent}%)</span>
                   </div>
-                  <div style={{ width: '100%', height: '8px', backgroundColor: 'var(--secondary)', borderRadius: '4px', overflow: 'hidden' }}>
+                  <div style={{ width: '100%', height: '8px', backgroundColor: 'var(--border)', borderRadius: '4px', overflow: 'hidden' }}>
                     <div style={{ height: '100%', width: `${percent}%`, backgroundColor: 'var(--primary)', borderRadius: '4px' }} />
                   </div>
                 </div>
@@ -57,15 +57,15 @@ export default async function InsightsPage() {
           </div>
         </Card>
 
-        <Card style={{ padding: '1.5rem', background: 'var(--background)', border: '1px solid var(--border)' }}>
+        <Card style={{ padding: '1.5rem', paddingBottom: '2.5rem' }}>
           <h3 className="font-display" style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '2rem', color: 'var(--foreground)' }}>Top Matched Keywords</h3>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
             {['React', 'TypeScript', 'Next.js', 'Frontend', 'Tailwind', 'Node.js', 'Prisma'].map((tag, i) => (
               <span key={tag} style={{ 
-                padding: '0.4rem 0.8rem', 
-                backgroundColor: 'var(--accent-light, #EEF2FF)', 
-                color: 'var(--primary)',
-                border: '1px solid var(--accent-light, #EEF2FF)', 
+                padding: '0.5rem 1rem', 
+                backgroundColor: 'var(--background-secondary)', 
+                color: 'var(--foreground)',
+                border: '1px solid var(--glass-border)', 
                 borderRadius: '999px',
                 fontSize: '0.85rem',
                 fontWeight: 500
