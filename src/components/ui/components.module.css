@@ -108,6 +108,8 @@
 /* ─── Card ─── */
 .card {
   background: var(--card);
+  backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   box-shadow: var(--glass-shadow);
@@ -116,6 +118,8 @@
 
 .cardElevated {
   background: var(--card);
+  backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   box-shadow: var(--glass-shadow);
@@ -131,6 +135,8 @@
 
 .cardInteractive {
   background: var(--card);
+  backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   box-shadow: var(--glass-shadow);
@@ -381,6 +387,8 @@
 /* ─── StatCard ─── */
 .statCard {
   background: var(--card);
+  backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) contrast(120%) brightness(110%);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   box-shadow: var(--glass-shadow);
