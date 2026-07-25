@@ -80,7 +80,7 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
 
   if (!initialResume) {
     return (
-      <Card style={{ padding: '3rem', textAlign: 'center', backgroundColor: 'var(--background)', border: '1px solid var(--border)' }}>
+      <Card style={{ padding: '3rem', textAlign: 'center' }}>
         <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--error, #DC2626)', marginBottom: '1rem' }}>No Resume Found</h2>
         <p style={{ color: 'var(--muted-foreground)', marginBottom: '1.5rem' }}>You need to upload a base resume before you can analyze it.</p>
         <button onClick={() => setIsResumeModalOpen(true)} style={{ padding: '0.75rem 1.5rem', background: 'var(--primary)', border: 'none', color: 'white', borderRadius: '8px', cursor: 'pointer', fontWeight: 500 }}>
@@ -95,7 +95,7 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       
       {/* Analyze Section */}
-      <Card style={{ padding: '2rem', backgroundColor: 'var(--background)', border: '1px solid var(--border)' }}>
+      <Card style={{ padding: '2rem' }}>
         <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--foreground)', marginBottom: '1.5rem' }}>Target Role Simulation</h2>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -122,13 +122,13 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
               }}
               onFocus={() => setShowDropdown(true)}
               style={{
-                width: '100%', padding: '0.75rem', backgroundColor: 'var(--background)', border: '1px solid var(--border)', borderRadius: '8px', color: 'var(--foreground)'
+                width: '100%', padding: '0.75rem', backgroundColor: 'var(--background-secondary)', border: '1px solid var(--border)', borderRadius: '8px', color: 'var(--foreground)'
               }}
             />
             {showDropdown && filteredRoles.length > 0 && (
               <div style={{
                 position: 'absolute', top: '100%', left: 0, right: 0, marginTop: '0.5rem',
-                backgroundColor: 'var(--background)',
+                backgroundColor: 'var(--background-secondary)',
                 border: '1px solid var(--border)', borderRadius: '8px',
                 maxHeight: '200px', overflowY: 'auto', zIndex: 50,
                 boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)'
@@ -166,7 +166,7 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
 
       {/* Analysis Results */}
       {(atsScore !== null || analysis) && (
-        <Card style={{ padding: '2rem', border: '1px solid var(--primary)', backgroundColor: 'var(--background)' }}>
+        <Card style={{ padding: '2rem', border: '1px solid var(--primary)' }}>
           <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--primary)', marginBottom: '1.5rem' }}>AI Analysis Results</h2>
           
           <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
@@ -214,7 +214,7 @@ export default function AnalysisClient({ initialResume }: AnalysisClientProps) {
       )}
 
       {/* Current Active Resume Text */}
-      <Card style={{ padding: '2rem', backgroundColor: 'var(--background)', border: '1px solid var(--border)' }}>
+      <Card style={{ padding: '2rem' }}>
         <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--foreground)', marginBottom: '1rem' }}>Parsed Resume Text</h2>
         <p style={{ fontSize: '0.85rem', color: 'var(--muted-foreground)', marginBottom: '1.5rem' }}>
           This is the raw text the AI extracted from your Base Resume. It will use this to generate customized resumes.

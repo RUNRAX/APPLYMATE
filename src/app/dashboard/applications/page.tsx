@@ -22,7 +22,7 @@ export default async function ApplicationsPage() {
         <p style={{ color: 'var(--muted-foreground)' }}>Track and manage all your automated job applications.</p>
       </div>
 
-      <Card style={{ padding: 0, overflow: 'hidden', background: 'var(--background)', border: '1px solid var(--border)' }}>
+      <Card style={{ padding: 0, overflow: 'hidden' }}>
         {applications.length === 0 ? (
           <div style={{ padding: '4rem 2rem', textAlign: 'center', color: 'var(--muted-foreground)' }}>
             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📭</div>
