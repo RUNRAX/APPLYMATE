@@ -385,8 +385,8 @@ export default function ResumeBuilderPage() {
                 onChange={e => setJobDescription(e.target.value)}
                 placeholder="Paste the full job description here..."
                 style={{ 
-                  width: '100%', minHeight: '200px', background: 'var(--background-secondary)', 
-                  border: '1px solid var(--border)', borderRadius: '8px', padding: '1rem', 
+                  width: '100%', minHeight: '200px', background: 'rgba(88, 28, 135, 0.15)', 
+                  border: '1px solid var(--glass-border)', borderRadius: '8px', padding: '1rem', 
                   color: 'var(--foreground)', resize: 'vertical', fontFamily: 'inherit'
                 }}
               />
@@ -395,8 +395,8 @@ export default function ResumeBuilderPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <label style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--foreground)' }}>Original Resume (PDF)</label>
               <div style={{ 
-                border: '1px dashed var(--border)', borderRadius: '8px', padding: '1.5rem', 
-                textAlign: 'center', background: 'var(--background-secondary)'
+                border: '1px dashed var(--glass-border)', borderRadius: '8px', padding: '1.5rem', 
+                textAlign: 'center', background: 'rgba(88, 28, 135, 0.15)'
               }}>
                 <input 
                   type="file" 
@@ -445,7 +445,7 @@ export default function ResumeBuilderPage() {
           {result && (
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, gap: '1.5rem', animation: 'fade-up 0.5s ease-out' }}>
               
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.5rem', background: 'var(--background-secondary)', borderRadius: '12px', border: '1px solid var(--border)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.5rem', background: 'rgba(88, 28, 135, 0.15)', borderRadius: '12px', border: '1px solid var(--glass-border)' }}>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
                   <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--muted-foreground)' }}>Baseline ATS</span>
@@ -473,8 +473,8 @@ export default function ResumeBuilderPage() {
                 <div 
                   ref={scrollContainerRef}
                   style={{ 
-                  flex: 1, height: '600px', overflowY: 'auto', background: 'var(--background-secondary)', 
-                  borderRadius: '8px', padding: '1rem', border: '1px solid var(--border)'
+                  flex: 1, height: '600px', overflowY: 'auto', background: 'rgba(88, 28, 135, 0.15)', 
+                  borderRadius: '8px', padding: '1rem', border: '1px solid var(--glass-border)'
                 }}>
                   <div ref={scaleWrapperRef} className="scale-wrapper" style={{ transform: 'scale(1)', transformOrigin: 'top center', margin: '0 auto', width: 'fit-content' }}>
                     {/* The actual printable area */}
@@ -646,8 +646,8 @@ export default function ResumeBuilderPage() {
                         onChange={(e) => setInput(e.target.value)}
                         placeholder="Tell Copilot what to change..."
                         style={{ 
-                          width: '100%', minHeight: '80px', background: 'var(--background-secondary)', 
-                          border: '1px solid var(--border)', borderRadius: '8px', padding: '0.75rem', 
+                          width: '100%', minHeight: '80px', background: 'rgba(88, 28, 135, 0.15)', 
+                          border: '1px solid var(--glass-border)', borderRadius: '8px', padding: '0.75rem', 
                           color: 'var(--foreground)', resize: 'none', fontFamily: 'inherit', fontSize: '0.9rem'
                         }}
                         disabled={isChatLoading}
