@@ -171,7 +171,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         </header>
 
         <div className={styles.scrollArea}>
-          {children}
+          <div className={styles.scrollContent}>
+            {children}
+          </div>
         </div>
       </main>
     </div>
