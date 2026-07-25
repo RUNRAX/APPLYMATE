@@ -77,9 +77,14 @@
   --transition-smooth: 0.3s var(--ease-out);
 
   /* Glass and Bubbles Light Mode */
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.6);
-  --glass-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.1) 100%);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-shadow: 
+    0 30px 60px -10px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05),
+    inset 0 20px 40px -10px rgba(255, 255, 255, 0.8),
+    inset 0 -20px 40px -10px rgba(0, 0, 0, 0.05);
   
   --bubble-bg-1: radial-gradient(circle at 30% 30%, #ffffff 0%, #e0e5ff 20%, #ffcbe5 50%, #b2fcfb 80%, #a2b2ff 100%);
   --bubble-bg-2: radial-gradient(circle at 70% 70%, #ffffff 0%, #d4e0ff 20%, #ffcbe5 60%, #b2fcfb 100%);
@@ -141,9 +146,14 @@
   --gradient-accent-soft: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
 
   /* Glass and Bubbles Dark Mode */
-  --glass-bg: rgba(20, 20, 20, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.05);
-  --glass-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+  --glass-bg: linear-gradient(135deg, rgba(30, 30, 30, 0.6) 0%, rgba(10, 10, 10, 0.2) 100%);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 
+    0 30px 60px -10px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    inset 0 20px 40px -10px rgba(255, 255, 255, 0.08),
+    inset 0 -20px 40px -10px rgba(0, 0, 0, 0.3);
 
   --bubble-bg-1: radial-gradient(circle at 50% 50%, #0a0a0a 0%, #000000 80%);
   --bubble-bg-2: radial-gradient(circle at 50% 50%, #0a0a0a 0%, #000000 80%);
