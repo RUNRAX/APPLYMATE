@@ -334,14 +334,17 @@
   left: 0;
   right: 0;
   overflow-y: auto;
-  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  padding: 2rem 1.5rem 0 1.5rem; /* Remove bottom padding to use explicit spacer instead */
   z-index: 1;
 }
 
+/* Global rule to mathematically force a physical gap at the bottom of all scrolling panels */
 .scrollArea::after {
   content: "";
   display: block;
-  height: 2.5rem; /* Forces space below the last element when scrolled to bottom */
+  height: 3rem; /* 48px gap that can never collapse */
+  width: 100%;
+  flex-shrink: 0;
 }
 
 .statsGrid {
