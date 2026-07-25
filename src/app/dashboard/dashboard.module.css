@@ -329,6 +329,12 @@
   position: relative;
 }
 
+.scrollArea::after {
+  content: "";
+  display: block;
+  height: 2.5rem; /* Forces space below the last element when scrolled to bottom */
+}
+
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
